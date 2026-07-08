@@ -5,254 +5,169 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="RootOPS - практический DevOps-маршрут от Linux и сетей до CI/CD, Kubernetes, observability и SRE."
+      content="RootOPS - практическая DevOps-платформа с курсами, лабораторными, прогрессом и реальными проектами."
     />
-    <title>RootOPS - DevOps learning platform</title>
-    <link rel="preload" href="assets/rootops-hero.png" as="image" />
+    <title>RootOPS - практическое обучение DevOps</title>
+    <link rel="preload" href="assets/rootops-devops-map.png" as="image" />
     <link rel="stylesheet" href="assets/styles.css" />
     <script src="assets/app.js" defer></script>
   </head>
   <body>
     <header class="site-header" data-header>
       <a class="brand" href="#top" aria-label="RootOPS">
-        <span class="brand-mark">R</span>
+        <span class="brand-mark" aria-hidden="true"></span>
         <span>RootOPS</span>
       </a>
       <nav class="site-nav" aria-label="Основная навигация">
-        <a href="#pipeline">Pipeline</a>
-        <a href="#roadmap">Modules</a>
-        <a href="#labs">Labs</a>
-        <a href="#stack">Stack</a>
+        <a class="is-active" href="#top">Главная</a>
+        <a href="#roadmap">Курсы</a>
+        <a href="#labs">Практика</a>
+        <a href="#community">Сообщество</a>
+        <a href="#about">О проекте</a>
       </nav>
-      <a class="header-action" href="#roadmap">Start track</a>
+      <div class="header-actions">
+        <a class="login-action" href="#community">Войти</a>
+        <a class="signup-action" href="#roadmap">Регистрация</a>
+      </div>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-media" aria-hidden="true"></div>
-        <div class="hero-shade" aria-hidden="true"></div>
-        <div class="hero-grid" aria-hidden="true"></div>
-
         <div class="hero-inner">
           <div class="hero-copy">
-            <div class="system-line">
-              <span class="status status-ok">prod online</span>
-              <span>rootops.su</span>
-              <span>track: devops</span>
-            </div>
-            <p class="eyebrow">Linux / Git / Docker / CI/CD / Kubernetes / SRE</p>
-            <h1 id="hero-title">RootOPS</h1>
+            <p class="eyebrow">Путь в DevOps начинается здесь</p>
+            <h1 id="hero-title">Практическое обучение DevOps по шагам</h1>
             <p class="hero-lead">
-              Учебная DevOps-консоль: идёшь по маршруту, запускаешь лабы,
-              собираешь пайплайны и постепенно доходишь до production-мышления.
+              RootOPS - это практическая платформа для тех, кто хочет стать
+              DevOps-инженером. Учитесь, выполняйте задания и собирайте реальные
+              проекты.
             </p>
             <div class="hero-actions" aria-label="Быстрые действия">
-              <a class="primary-action" href="#roadmap">Открыть маршрут</a>
-              <a class="secondary-action" href="#pipeline">Посмотреть pipeline</a>
-            </div>
-            <div class="signal-strip" aria-label="Сводка платформы">
-              <div>
-                <span>track</span>
-                <strong>12 modules</strong>
-              </div>
-              <div>
-                <span>practice</span>
-                <strong>36 labs</strong>
-              </div>
-              <div>
-                <span>delivery</span>
-                <strong>ssh deploy</strong>
-              </div>
-              <div>
-                <span>status</span>
-                <strong>ready</strong>
-              </div>
+              <a class="primary-action" href="#roadmap">Начать обучение</a>
+              <a class="secondary-action" href="#roadmap">Смотреть курсы</a>
             </div>
           </div>
 
-          <aside class="ops-panel" aria-label="DevOps-сводка RootOPS">
-            <div class="panel-top">
-              <span>ops console</span>
-              <span class="status status-ok">healthy</span>
-            </div>
-            <div class="pipeline-mini" aria-label="Состояние пайплайна">
-              <div class="pipeline-step is-done">
-                <span>01</span>
-                <strong>commit</strong>
-                <em>main</em>
-              </div>
-              <div class="pipeline-step is-done">
-                <span>02</span>
-                <strong>build</strong>
-                <em>static</em>
-              </div>
-              <div class="pipeline-step is-live">
-                <span>03</span>
-                <strong>deploy</strong>
-                <em>caddy</em>
-              </div>
-              <div class="pipeline-step">
-                <span>04</span>
-                <strong>observe</strong>
-                <em>next</em>
-              </div>
-            </div>
-            <div class="terminal" aria-label="Терминал RootOPS">
-              <p><span>$</span> rootops bootstrap --env prod</p>
-              <p>domain: rootops.su -> 185.23.34.83</p>
-              <p>proxy: caddy / tls auto / static site</p>
-              <p><span>result:</span> first learning node online</p>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="section sprint-band" aria-label="Текущий спринт">
-        <div class="section-inner sprint-grid">
-          <div>
-            <p class="section-kicker">Current sprint</p>
-            <h2>Собираем платформу как настоящий сервис.</h2>
-          </div>
-          <div class="sprint-board">
-            <div>
-              <span>deploy</span>
-              <strong>GitHub Actions -> Caddy</strong>
-            </div>
-            <div>
-              <span>content</span>
-              <strong>Linux base first</strong>
-            </div>
-            <div>
-              <span>next</span>
-              <strong>lesson template</strong>
-            </div>
+          <div class="hero-visual" aria-label="DevOps схема RootOPS">
+            <img src="assets/rootops-devops-map.png" alt="" />
+            <span class="visual-label label-code">Код</span>
+            <span class="visual-label label-containers">Контейнеры</span>
+            <span class="visual-label label-cloud">Облако</span>
+            <span class="visual-label label-automation">Автоматизация</span>
+            <span class="visual-label label-security">Безопасность</span>
+            <span class="visual-label label-monitoring">Мониторинг</span>
           </div>
         </div>
       </section>
 
-      <section class="section pipeline-section" id="pipeline" aria-labelledby="pipeline-title">
+      <section class="feature-shell" aria-label="Возможности платформы">
+        <div class="feature-grid">
+          <article class="feature-item">
+            <span class="feature-icon icon-book" aria-hidden="true"></span>
+            <div>
+              <h2>Пошаговое обучение</h2>
+              <p>Движение от простого к сложному с понятными объяснениями.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <span class="feature-icon icon-terminal" aria-hidden="true"></span>
+            <div>
+              <h2>Практика</h2>
+              <p>Реальные задания и проекты, приближенные к работе в IT.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <span class="feature-icon icon-progress" aria-hidden="true"></span>
+            <div>
+              <h2>Прогресс</h2>
+              <p>Отслеживайте свой прогресс и получайте достижения.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <span class="feature-icon icon-community" aria-hidden="true"></span>
+            <div>
+              <h2>Сообщество</h2>
+              <p>Общайтесь, задавайте вопросы и делитесь опытом.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section courses-section" id="roadmap" aria-labelledby="roadmap-title">
         <div class="section-inner">
           <div class="section-heading">
             <div>
-              <p class="section-kicker">Delivery flow</p>
-              <h2 id="pipeline-title">От коммита до работающего сервиса</h2>
+              <h2 id="roadmap-title">Ваш путь обучения</h2>
+              <p>Выбирайте направление и начинайте свой путь в DevOps.</p>
             </div>
-            <p>
-              RootOPS показывает DevOps не как набор названий, а как цепочку
-              действий: изменение, проверка, доставка, наблюдение и улучшение.
-            </p>
-          </div>
-          <div class="delivery-flow" aria-label="DevOps pipeline">
-            <article>
-              <span>git push</span>
-              <h3>Source</h3>
-              <p>Код, контент, конфигурация и история изменений в одном репозитории.</p>
-            </article>
-            <article>
-              <span>actions</span>
-              <h3>Validate</h3>
-              <p>Проверка структуры, сборка артефактов и контроль секретов перед релизом.</p>
-            </article>
-            <article>
-              <span>rsync</span>
-              <h3>Deploy</h3>
-              <p>Доставка на VPS через SSH в директорию, которую раздаёт Caddy.</p>
-            </article>
-            <article>
-              <span>observe</span>
-              <h3>Operate</h3>
-              <p>Следующий слой: логи, метрики, алерты, backup и rollback-процедуры.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section roadmap-section" id="roadmap" aria-labelledby="roadmap-title">
-        <div class="section-inner">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker">Learning topology</p>
-              <h2 id="roadmap-title">Карта навыков DevOps-инженера</h2>
-            </div>
-            <div class="filters" aria-label="Фильтр модулей">
-              <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">
-                All
-              </button>
-              <button class="filter-button" type="button" data-filter="foundation" aria-pressed="false">
-                Base
-              </button>
-              <button class="filter-button" type="button" data-filter="core" aria-pressed="false">
-                Core
-              </button>
-              <button class="filter-button" type="button" data-filter="production" aria-pressed="false">
-                Prod
-              </button>
-            </div>
+            <a class="section-link" href="#roadmap">Смотреть все курсы</a>
           </div>
 
-          <div class="roadmap-grid" data-roadmap>
-            <article class="module-card is-active-module" data-stage="foundation">
-              <span class="module-index">01</span>
-              <span class="module-status status-ok">ready</span>
-              <h3>Linux и shell</h3>
-              <p>Файлы, процессы, права, systemd, журналы, диагностика и уверенная работа в терминале.</p>
-              <span class="module-stage">foundation</span>
+          <div class="filters" aria-label="Фильтр модулей">
+            <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">
+              Все
+            </button>
+            <button class="filter-button" type="button" data-filter="foundation" aria-pressed="false">
+              База
+            </button>
+            <button class="filter-button" type="button" data-filter="core" aria-pressed="false">
+              Core
+            </button>
+            <button class="filter-button" type="button" data-filter="production" aria-pressed="false">
+              Production
+            </button>
+          </div>
+
+          <div class="course-grid" data-roadmap>
+            <article class="course-card" data-stage="foundation">
+              <span class="course-number">01</span>
+              <span class="course-icon linux-icon" aria-hidden="true"></span>
+              <h3>Linux и терминал</h3>
+              <p>Основы работы в Linux, команды, файловая система и права.</p>
+              <div class="progress-row">
+                <span>0%</span>
+                <span class="progress-bar"><span style="width: 0%"></span></span>
+              </div>
             </article>
-            <article class="module-card" data-stage="foundation">
-              <span class="module-index">02</span>
-              <span class="module-status status-wait">queued</span>
-              <h3>Сети</h3>
-              <p>TCP/IP, DNS, HTTP, TLS, маршруты, порты, firewall и разбор сетевых проблем.</p>
-              <span class="module-stage">foundation</span>
+            <article class="course-card" data-stage="foundation">
+              <span class="course-number">02</span>
+              <span class="course-icon git-icon" aria-hidden="true"></span>
+              <h3>Git и GitHub</h3>
+              <p>Системы контроля версий, ветки, pull request и релизы.</p>
+              <div class="progress-row">
+                <span>0%</span>
+                <span class="progress-bar"><span style="width: 0%"></span></span>
+              </div>
             </article>
-            <article class="module-card" data-stage="foundation">
-              <span class="module-index">03</span>
-              <span class="module-status status-wait">queued</span>
-              <h3>Git и delivery</h3>
-              <p>Ветки, pull request, теги, релизы, changelog и аккуратный поток изменений.</p>
-              <span class="module-stage">foundation</span>
-            </article>
-            <article class="module-card" data-stage="core">
-              <span class="module-index">04</span>
-              <span class="module-status status-lock">locked</span>
+            <article class="course-card" data-stage="core">
+              <span class="course-number">03</span>
+              <span class="course-icon docker-icon" aria-hidden="true"></span>
               <h3>Docker</h3>
-              <p>Images, layers, volumes, networks, Compose, healthchecks и минимальные production-образы.</p>
-              <span class="module-stage">core</span>
+              <p>Контейнеризация приложений, образы, контейнеры и Compose.</p>
+              <div class="progress-row">
+                <span>0%</span>
+                <span class="progress-bar"><span style="width: 0%"></span></span>
+              </div>
             </article>
-            <article class="module-card" data-stage="core">
-              <span class="module-index">05</span>
-              <span class="module-status status-lock">locked</span>
+            <article class="course-card" data-stage="core">
+              <span class="course-number">04</span>
+              <span class="course-icon cicd-icon" aria-hidden="true"></span>
               <h3>CI/CD</h3>
-              <p>Pipeline, secrets, artifacts, SSH deploy, rollback и проверки перед релизом.</p>
-              <span class="module-stage">core</span>
+              <p>Непрерывная интеграция, доставка приложений и rollback.</p>
+              <div class="progress-row">
+                <span>0%</span>
+                <span class="progress-bar"><span style="width: 0%"></span></span>
+              </div>
             </article>
-            <article class="module-card" data-stage="core">
-              <span class="module-index">06</span>
-              <span class="module-status status-lock">locked</span>
-              <h3>Infrastructure as Code</h3>
-              <p>Terraform, состояния, переменные, модули, окружения и воспроизводимая инфраструктура.</p>
-              <span class="module-stage">core</span>
-            </article>
-            <article class="module-card" data-stage="production">
-              <span class="module-index">07</span>
-              <span class="module-status status-lock">locked</span>
-              <h3>Kubernetes</h3>
-              <p>Pods, Deployments, Services, Ingress, ConfigMaps, Secrets, probes и эксплуатация.</p>
-              <span class="module-stage">production</span>
-            </article>
-            <article class="module-card" data-stage="production">
-              <span class="module-index">08</span>
-              <span class="module-status status-lock">locked</span>
-              <h3>Observability</h3>
-              <p>Метрики, логи, трейсы, алерты, SLO и разбор инцидентов по фактам.</p>
-              <span class="module-stage">production</span>
-            </article>
-            <article class="module-card" data-stage="production">
-              <span class="module-index">09</span>
-              <span class="module-status status-lock">locked</span>
-              <h3>Security и SRE</h3>
-              <p>Least privilege, hardening, backups, runbooks, postmortem и надежность сервиса.</p>
-              <span class="module-stage">production</span>
+            <article class="course-card" data-stage="production">
+              <span class="course-number">05</span>
+              <span class="course-icon cloud-icon" aria-hidden="true"></span>
+              <h3>Облака и инфраструктура</h3>
+              <p>Работа с облачными провайдерами и инфраструктурой как код.</p>
+              <div class="progress-row">
+                <span>0%</span>
+                <span class="progress-bar"><span style="width: 0%"></span></span>
+              </div>
             </article>
           </div>
         </div>
@@ -261,61 +176,71 @@
       <section class="section practice-section" id="labs" aria-labelledby="labs-title">
         <div class="section-inner practice-layout">
           <div>
-            <p class="section-kicker">Runbooks and labs</p>
-            <h2 id="labs-title">Практика выглядит как рабочие задачи.</h2>
+            <p class="section-kicker">Практика</p>
+            <h2 id="labs-title">Лабы как реальные рабочие задачи</h2>
             <p>
-              Каждая лаба должна давать результат, который можно проверить:
-              сервис поднят, порт открыт, pipeline прошёл, метрика появилась,
-              rollback отработал.
+              Каждый блок заканчивается проверяемым результатом: сервис поднят,
+              pipeline прошёл, мониторинг видит метрики, rollback отрабатывает.
             </p>
           </div>
           <div class="lab-list">
             <article>
-              <span>runbook 01</span>
+              <span>Lab 01</span>
               <h3>Static deploy через Caddy</h3>
               <p>Домен, HTTPS, firewall, директория сайта и первый автоматический релиз.</p>
             </article>
             <article>
-              <span>runbook 02</span>
+              <span>Lab 02</span>
               <h3>Dockerized app</h3>
-              <p>Сборка образа, Compose, переменные окружения, healthcheck и restart policy.</p>
+              <p>Сборка образа, Compose, переменные окружения и healthcheck.</p>
             </article>
             <article>
-              <span>runbook 03</span>
+              <span>Lab 03</span>
               <h3>Pipeline с rollback</h3>
-              <p>GitHub Actions, SSH deploy, проверка результата и быстрый откат релиза.</p>
+              <p>GitHub Actions, SSH deploy, проверка результата и быстрый откат.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section stack-section" id="stack" aria-labelledby="stack-title">
-        <div class="section-inner">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker">Production baseline</p>
-              <h2 id="stack-title">Минимальный стек платформы</h2>
-            </div>
-            <p>
-              Сейчас RootOPS работает как статический сервис. Дальше можно
-              добавлять backend, прогресс, тесты, monitoring stack и учебные песочницы.
-            </p>
+      <section class="section community-section" id="community" aria-labelledby="community-title">
+        <div class="section-inner community-panel">
+          <div>
+            <p class="section-kicker">Сообщество</p>
+            <h2 id="community-title">Учиться проще, когда рядом есть инженеры.</h2>
           </div>
-          <div class="stack-grid">
-            <div><span>edge</span><strong>Caddy + TLS</strong></div>
-            <div><span>repo</span><strong>GitHub</strong></div>
-            <div><span>ci</span><strong>Actions</strong></div>
-            <div><span>deploy</span><strong>SSH + rsync</strong></div>
-            <div><span>host</span><strong>Ubuntu VPS</strong></div>
-            <div><span>next</span><strong>Docker labs</strong></div>
+          <p>
+            В будущем здесь появятся обсуждения лабораторных, вопросы по ошибкам,
+            разборы инфраструктурных схем и совместные проекты.
+          </p>
+        </div>
+      </section>
+
+      <section class="section about-section" id="about" aria-labelledby="about-title">
+        <div class="section-inner about-grid">
+          <div>
+            <p class="section-kicker">О проекте</p>
+            <h2 id="about-title">RootOPS строится как учебная production-среда.</h2>
+          </div>
+          <div class="about-points">
+            <div>
+              <span>01</span>
+              <strong>Сначала база</strong>
+              <p>Linux, сети, Git и терминал без пропусков.</p>
+            </div>
+            <div>
+              <span>02</span>
+              <strong>Потом доставка</strong>
+              <p>Docker, CI/CD, IaC и автоматизация релизов.</p>
+            </div>
+            <div>
+              <span>03</span>
+              <strong>Затем эксплуатация</strong>
+              <p>Kubernetes, observability, security и SRE-подход.</p>
+            </div>
           </div>
         </div>
       </section>
     </main>
-
-    <footer class="site-footer">
-      <span>RootOPS</span>
-      <span>devops learning platform / rootops.su / prod online</span>
-    </footer>
   </body>
 </html>
