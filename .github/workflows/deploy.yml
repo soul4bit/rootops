@@ -31,7 +31,7 @@ jobs:
           test -f index.html
           test -f assets/styles.css
           test -f assets/app.js
-          test -f assets/rootops-hero.png
+          test -f assets/rootops-devops-map.png
 
       - name: Install deploy tools
         run: |
