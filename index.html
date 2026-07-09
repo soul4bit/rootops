@@ -41,43 +41,43 @@
         <div class="hero-inner">
           <div class="hero-copy">
             <p class="eyebrow">DevOps-практика в браузере</p>
-            <h1 id="hero-title">Твой личный <span>DevOps-сервер</span> для обучения</h1>
+            <h1 id="hero-title">Личный Linux-<wbr />сервер <span>для DevOps-<wbr />практики</span></h1>
             <p class="hero-lead">
-              Изучай Linux, Docker, CI/CD и production-подходы через теорию, практику и живые
-              лаборатории в своём браузере.
+              После регистрации ты получаешь учебный сервер и проходишь теорию, команды и
+              лаборатории прямо в браузере.
             </p>
             <div class="hero-actions" aria-label="Быстрые действия">
-              <a class="primary-action" href="/register" data-auth-open="register">Начать бесплатно</a>
+              <a class="primary-action" href="/register" data-auth-open="register">Получить сервер</a>
               <a class="secondary-action" href="#labs">
-                <span>Как это работает</span>
+                <span>Посмотреть лабы</span>
                 <span class="play-dot" aria-hidden="true"></span>
               </a>
             </div>
             <div class="hero-badges" aria-label="Преимущества">
-              <span>Без установки</span>
-              <span>Доступ 24/7</span>
-              <span>Защищённый вход</span>
+              <span>Теория + практика</span>
+              <span>Linux-сервер после регистрации</span>
+              <span>Лабы закрыты до входа</span>
             </div>
             <dl class="hero-proof" aria-label="RootOPS в цифрах">
               <div>
-                <dt>1 мин</dt>
-                <dd>до личного сервера</dd>
+                <dt>1 аккаунт</dt>
+                <dd>личная учебная среда</dd>
               </div>
               <div>
-                <dt>5</dt>
-                <dd>первых DevOps-модулей</dd>
+                <dt>0 установок</dt>
+                <dd>работа из браузера</dd>
               </div>
               <div>
-                <dt>0 ₽</dt>
-                <dd>стартовый доступ</dd>
+                <dt>реальные лабы</dt>
+                <dd>после регистрации</dd>
               </div>
             </dl>
           </div>
 
-          <div class="terminal-card" aria-label="Демо-терминал RootOPS">
+          <div class="terminal-card hero-terminal" aria-label="Демо-терминал RootOPS">
             <div class="terminal-top">
               <span class="terminal-status"></span>
-              <span>Демо-терминал</span>
+              <span>demo-terminal / rootops</span>
               <div class="window-dots" aria-hidden="true">
                 <span></span>
                 <span></span>
@@ -85,26 +85,35 @@
               </div>
             </div>
             <div class="terminal-body">
-              <p><span>student@rootops-demo:~$</span> whoami</p>
-              <p>student</p>
-              <p><span>student@rootops-demo:~$</span> docker ps</p>
+              <p><span>guest@rootops:~$</span> rootops server status</p>
+              <p>сервер: будет создан после регистрации</p>
+              <p><span>guest@rootops:~$</span> rootops lab open linux-files</p>
               <div class="terminal-table" role="presentation">
-                <span>CONTAINER ID</span>
-                <span>IMAGE</span>
-                <span>STATUS</span>
-                <span>PORTS</span>
+                <span>МОДУЛЬ</span>
+                <span>СРЕДА</span>
+                <span>СТАТУС</span>
+                <span>ДОСТУП</span>
+                <span>Linux и файлы</span>
+                <span>Ubuntu 24.04</span>
+                <span>готово</span>
+                <span>locked</span>
               </div>
-              <p><span>student@rootops-demo:~$</span> rootops start</p>
-              <p class="terminal-note">
-                Чтобы запустить личный сервер, зарегистрируйтесь или войдите в аккаунт.
-              </p>
-              <p><span>student@rootops-demo:~$</span><i></i></p>
+              <p><span>guest@rootops:~$</span> rootops start</p>
+              <p class="terminal-note">Открой аккаунт, чтобы получить личный сервер, терминал и проверку заданий.</p>
+              <div class="hero-lock" aria-label="Полный доступ после регистрации">
+                <span class="lock-icon" aria-hidden="true"></span>
+                <div>
+                  <strong>Полный доступ после регистрации</strong>
+                  <p>Реальные лабы, сервер и прогресс откроются в личном кабинете.</p>
+                </div>
+              </div>
+              <p><span>guest@rootops:~$</span><i></i></p>
             </div>
             <div class="terminal-chips" aria-label="Команды">
-              <span>whoami</span>
+              <span>rootops server</span>
               <span>ls -la</span>
               <span>docker ps</span>
-              <span>rootops start</span>
+              <span>rootops check</span>
             </div>
           </div>
         </div>
