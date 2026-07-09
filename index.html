@@ -161,6 +161,13 @@
               Регистрируешься, открываешь сервер и выполняешь задание. Всё проходит в браузере:
               теория, терминал и проверка.
             </p>
+            <div class="flow-note">
+              <span class="terminal-status"></span>
+              <div>
+                <strong>Лабы доступны после регистрации</strong>
+                <p>До входа показываем демо. После входа открываются сервер, задания и прогресс.</p>
+              </div>
+            </div>
           </div>
 
           <div class="step-grid">
@@ -217,6 +224,12 @@
             <span><b class="tool-terraform"></b>Terraform</span>
             <span><b class="tool-kubernetes"></b>Kubernetes</span>
             <span><b class="tool-monitoring"></b>Monitoring</span>
+          </div>
+          <div class="path-summary" aria-label="Путь обучения">
+            <span><strong>01</strong> Linux и терминал</span>
+            <span><strong>02</strong> Git и Docker</span>
+            <span><strong>03</strong> CI/CD и деплой</span>
+            <span><strong>04</strong> Kubernetes и мониторинг</span>
           </div>
         </div>
       </section>
@@ -285,6 +298,10 @@
                 <dd>59:47</dd>
               </div>
             </dl>
+            <div class="server-access">
+              <span>Доступ</span>
+              <strong>После регистрации</strong>
+            </div>
             <a class="primary-action wide-action" href="/register" data-auth-open="register">Получить сервер</a>
           </article>
 
@@ -412,6 +429,7 @@
 
           <div class="course-grid" data-roadmap>
             <article class="course-card" data-stage="foundation">
+              <span class="course-access is-open">Старт</span>
               <span class="course-number">01</span>
               <span class="course-icon linux-icon" aria-hidden="true"></span>
               <h3>Linux и терминал</h3>
@@ -422,6 +440,7 @@
               </div>
             </article>
             <article class="course-card" data-stage="foundation">
+              <span class="course-access">После регистрации</span>
               <span class="course-number">02</span>
               <span class="course-icon git-icon" aria-hidden="true"></span>
               <h3>Git и GitHub</h3>
@@ -432,6 +451,7 @@
               </div>
             </article>
             <article class="course-card" data-stage="core">
+              <span class="course-access">После регистрации</span>
               <span class="course-number">03</span>
               <span class="course-icon docker-icon" aria-hidden="true"></span>
               <h3>Docker</h3>
@@ -442,6 +462,7 @@
               </div>
             </article>
             <article class="course-card" data-stage="core">
+              <span class="course-access">После регистрации</span>
               <span class="course-number">04</span>
               <span class="course-icon cicd-icon" aria-hidden="true"></span>
               <h3>CI/CD</h3>
@@ -452,6 +473,7 @@
               </div>
             </article>
             <article class="course-card" data-stage="production">
+              <span class="course-access">После регистрации</span>
               <span class="course-number">05</span>
               <span class="course-icon kube-icon" aria-hidden="true"></span>
               <h3>Kubernetes</h3>
@@ -471,6 +493,15 @@
             <p class="section-kicker">Лаборатории</p>
             <h2 id="labs-title">Лабы доступны после регистрации</h2>
             <p>Внутри лабы: короткая теория, терминал, задание и проверка результата.</p>
+          </div>
+
+          <div class="lab-lock-banner">
+            <span class="lock-icon" aria-hidden="true"></span>
+            <div>
+              <strong>Это демо лаборатории</strong>
+              <p>Полный доступ к заданиям, серверу и проверке открывается после регистрации.</p>
+            </div>
+            <a href="/register" data-auth-open="register">Открыть доступ</a>
           </div>
 
           <div class="lab-workspace" aria-label="Пример лаборатории">
@@ -581,6 +612,10 @@
             <details>
               <summary>Подойдёт ли новичку?</summary>
               <p>Да. Идёшь от Linux до Kubernetes по шагам, без лишней теории.</p>
+            </details>
+            <details>
+              <summary>Когда откроются лабы?</summary>
+              <p>После регистрации. До входа можно посмотреть демо и понять формат.</p>
             </details>
             <details>
               <summary>Как проверяются задания?</summary>

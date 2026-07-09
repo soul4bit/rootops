@@ -972,6 +972,7 @@ body.is-auth-open {
   min-height: 230px;
   min-width: 0;
   flex-direction: column;
+  justify-content: flex-start;
   padding: 20px;
 }
 
@@ -989,7 +990,7 @@ body.is-auth-open {
 }
 
 .step-card h3 {
-  margin: auto 0 8px;
+  margin: 34px 0 8px;
   font-size: 1.05rem;
   line-height: 1.24;
 }
@@ -1043,6 +1044,29 @@ body.is-auth-open {
   color: var(--muted-2);
   font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.78rem;
+}
+
+.flow-note {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  align-items: start;
+  gap: 12px;
+  margin-top: 22px;
+  border: 1px solid rgba(64, 229, 115, 0.24);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(64, 229, 115, 0.08);
+}
+
+.flow-note strong {
+  display: block;
+  color: var(--green);
+  font-size: 0.92rem;
+}
+
+.flow-note p {
+  margin: 3px 0 0;
+  font-size: 0.88rem;
 }
 
 .tool-grid {
@@ -1139,6 +1163,31 @@ body.is-auth-open {
 .tool-monitoring::before {
   content: "M";
   color: #f6b74a;
+}
+
+.path-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.path-summary span {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(245, 248, 255, 0.82);
+  font-size: 0.88rem;
+  font-weight: 720;
+}
+
+.path-summary strong {
+  margin-right: 8px;
+  color: var(--green);
+  font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.8rem;
 }
 
 .server-section,
@@ -1291,6 +1340,28 @@ body.is-auth-open {
   margin: 0;
   color: var(--text);
   font-weight: 720;
+}
+
+.server-access {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -4px 0 18px;
+  border: 1px solid rgba(64, 229, 115, 0.24);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: rgba(64, 229, 115, 0.08);
+}
+
+.server-access span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.server-access strong {
+  color: var(--green);
+  font-size: 0.86rem;
 }
 
 .wide-action {
@@ -1638,10 +1709,33 @@ body.is-auth-open {
     background 160ms ease;
 }
 
+.step-card,
+.outcome-grid article,
+.server-card,
+.dashboard-preview,
+.pricing-card,
+.faq-list details {
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
 .course-card:hover {
   transform: translateY(-3px);
   border-color: rgba(64, 229, 115, 0.34);
   background: rgba(13, 24, 39, 0.86);
+}
+
+.step-card:hover,
+.outcome-grid article:hover,
+.server-card:hover,
+.dashboard-preview:hover,
+.pricing-card:hover,
+.faq-list details:hover {
+  transform: translateY(-2px);
+  border-color: rgba(64, 229, 115, 0.3);
+  background: rgba(13, 24, 39, 0.84);
 }
 
 .course-card.is-hidden {
@@ -1652,6 +1746,25 @@ body.is-auth-open {
   color: var(--green);
   font-size: 0.82rem;
   font-weight: 860;
+}
+
+.course-access {
+  position: absolute;
+  top: 18px;
+  left: 54px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 999px;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 780;
+}
+
+.course-access.is-open {
+  border-color: rgba(64, 229, 115, 0.32);
+  background: rgba(64, 229, 115, 0.1);
+  color: var(--green);
 }
 
 .course-icon {
@@ -1765,6 +1878,42 @@ body.is-auth-open {
   grid-template-columns: 180px minmax(0, 1fr) 240px;
   gap: 14px;
   align-items: stretch;
+}
+
+.lab-lock-banner {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(64, 229, 115, 0.26);
+  border-radius: 8px;
+  padding: 14px 16px;
+  background:
+    linear-gradient(135deg, rgba(64, 229, 115, 0.12), rgba(38, 199, 255, 0.05)),
+    rgba(9, 17, 29, 0.72);
+}
+
+.lab-lock-banner strong {
+  display: block;
+  color: var(--green);
+}
+
+.lab-lock-banner p {
+  margin: 2px 0 0;
+  color: var(--muted);
+}
+
+.lab-lock-banner a {
+  justify-self: end;
+  border: 1px solid rgba(64, 229, 115, 0.34);
+  border-radius: 8px;
+  padding: 9px 13px;
+  background: rgba(64, 229, 115, 0.14);
+  color: var(--green);
+  font-size: 0.84rem;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .lab-panel {
@@ -2423,6 +2572,7 @@ code {
 
   .feature-grid,
   .tool-grid,
+  .path-summary,
   .step-grid,
   .outcome-grid,
   .course-grid,
@@ -2507,6 +2657,18 @@ code {
   .lab-terminal,
   .check-result {
     grid-column: auto;
+  }
+
+  .lab-lock-banner {
+    grid-template-columns: 36px 1fr;
+    align-items: start;
+  }
+
+  .lab-lock-banner a {
+    width: 100%;
+    grid-column: 1 / -1;
+    justify-self: stretch;
+    text-align: center;
   }
 
   .auth-modal {
