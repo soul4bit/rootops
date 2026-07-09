@@ -400,6 +400,35 @@ body.is-auth-open {
   transform: translateY(-50%) rotate(-45deg);
 }
 
+.hero-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 520px;
+  margin: 28px 0 0;
+}
+
+.hero-proof div {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 13px 14px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.hero-proof dt {
+  color: var(--text);
+  font-size: 1.18rem;
+  font-weight: 860;
+}
+
+.hero-proof dd {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
 .terminal-card,
 .server-card,
 .dashboard-preview,
@@ -725,6 +754,129 @@ body.is-auth-open {
   content: " ->";
 }
 
+.how-section,
+.outcome-section {
+  border-bottom: 1px solid var(--line);
+  background: rgba(3, 7, 13, 0.28);
+}
+
+.how-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1.05fr) minmax(300px, 0.62fr);
+  gap: 26px;
+  align-items: stretch;
+}
+
+.how-layout > div:first-child {
+  align-self: center;
+}
+
+.how-layout h2,
+.outcome-copy h2 {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.18;
+}
+
+.how-layout p,
+.outcome-copy p {
+  margin: 10px 0 0;
+  color: var(--muted);
+}
+
+.step-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.step-card,
+.session-card,
+.outcome-grid article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(9, 17, 29, 0.72);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+}
+
+.step-card {
+  display: flex;
+  min-height: 230px;
+  min-width: 0;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.step-card span {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(64, 229, 115, 0.34);
+  border-radius: 8px;
+  background: rgba(64, 229, 115, 0.1);
+  color: var(--green);
+  font-size: 0.82rem;
+  font-weight: 860;
+}
+
+.step-card h3 {
+  margin: auto 0 8px;
+  font-size: 1.05rem;
+  line-height: 1.24;
+}
+
+.step-card p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.session-card {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 80% 15%, rgba(38, 199, 255, 0.12), transparent 34%),
+    rgba(9, 17, 29, 0.82);
+}
+
+.session-card-head {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.session-card-head small {
+  color: var(--green);
+  font-weight: 760;
+}
+
+.session-card ol {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.session-card li {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  color: rgba(245, 248, 255, 0.82);
+  font-size: 0.9rem;
+}
+
+.session-card li span {
+  color: var(--muted-2);
+  font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.78rem;
+}
+
 .tool-grid {
   display: grid;
   grid-template-columns: repeat(11, minmax(0, 1fr));
@@ -827,6 +979,69 @@ body.is-auth-open {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: rgba(3, 7, 13, 0.44);
+}
+
+.outcome-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.64fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.outcome-copy {
+  position: sticky;
+  top: 98px;
+}
+
+.outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.outcome-grid article {
+  min-width: 0;
+  padding: 18px;
+}
+
+.outcome-dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 22px rgba(64, 229, 115, 0.8);
+}
+
+.outcome-grid h3 {
+  margin: 32px 0 8px;
+  font-size: 1rem;
+}
+
+.outcome-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.command-strip {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 2 / 3;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(3, 7, 13, 0.44);
+}
+
+.command-strip span {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: var(--green);
+  font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.82rem;
 }
 
 .server-layout,
@@ -1532,6 +1747,46 @@ code {
   margin: 0;
 }
 
+.pricing-includes {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pricing-includes li {
+  position: relative;
+  padding-left: 24px;
+  color: rgba(245, 248, 255, 0.82);
+  font-size: 0.9rem;
+  font-weight: 680;
+}
+
+.pricing-includes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgba(64, 229, 115, 0.72);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.pricing-includes li::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: calc(50% - 1px);
+  width: 6px;
+  height: 3px;
+  border-left: 2px solid var(--green);
+  border-bottom: 2px solid var(--green);
+  transform: translateY(-50%) rotate(-45deg);
+}
+
 .faq-list {
   display: grid;
   gap: 12px;
@@ -1729,6 +1984,8 @@ code {
   }
 
   .hero-inner,
+  .how-layout,
+  .outcome-layout,
   .server-layout,
   .dashboard-layout,
   .pricing-layout,
@@ -1737,6 +1994,10 @@ code {
   }
 
   .dashboard-copy {
+    position: static;
+  }
+
+  .outcome-copy {
     position: static;
   }
 
@@ -1754,6 +2015,15 @@ code {
 
   .tool-grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .step-grid,
+  .outcome-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .command-strip {
+    grid-column: 1 / -1;
   }
 
   .course-grid {
@@ -1869,6 +2139,11 @@ code {
     gap: 12px;
   }
 
+  .hero-proof {
+    grid-template-columns: 1fr;
+    max-width: none;
+  }
+
   .terminal-table {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
@@ -1880,6 +2155,8 @@ code {
 
   .feature-grid,
   .tool-grid,
+  .step-grid,
+  .outcome-grid,
   .course-grid,
   .preview-grid,
   .lab-workspace {
@@ -1910,6 +2187,8 @@ code {
   }
 
   .section-heading h2,
+  .how-layout h2,
+  .outcome-copy h2,
   .server-copy h2,
   .dashboard-copy h2,
   .pricing-layout h2,
@@ -1941,6 +2220,19 @@ code {
 
   .server-panel dl {
     grid-template-columns: 1fr;
+  }
+
+  .step-card {
+    min-height: auto;
+  }
+
+  .step-card h3 {
+    margin-top: 28px;
+  }
+
+  .session-card li {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .lab-sidebar,

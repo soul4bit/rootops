@@ -23,9 +23,9 @@
       <nav class="site-nav" aria-label="Основная навигация">
         <a class="is-active" href="#top">Главная</a>
         <a href="#features">Возможности</a>
+        <a href="#how-it-works">Как работает</a>
         <a href="#roadmap">Программа</a>
         <a href="#labs">Лаборатории</a>
-        <a href="#pricing">Тарифы</a>
         <a href="#faq">FAQ</a>
       </nav>
 
@@ -58,6 +58,20 @@
               <span>Доступ 24/7</span>
               <span>Защищённый вход</span>
             </div>
+            <dl class="hero-proof" aria-label="RootOPS в цифрах">
+              <div>
+                <dt>1 мин</dt>
+                <dd>до личного сервера</dd>
+              </div>
+              <div>
+                <dt>5</dt>
+                <dd>первых DevOps-модулей</dd>
+              </div>
+              <div>
+                <dt>0 ₽</dt>
+                <dd>стартовый доступ</dd>
+              </div>
+            </dl>
           </div>
 
           <div class="terminal-card" aria-label="Демо-терминал RootOPS">
@@ -129,6 +143,51 @@
         </div>
       </section>
 
+      <section class="section how-section" id="how-it-works" aria-labelledby="how-title">
+        <div class="section-inner how-layout">
+          <div>
+            <p class="section-kicker">Как это работает</p>
+            <h2 id="how-title">От регистрации до первой проверки за один короткий заход</h2>
+            <p>
+              RootOPS убирает лишнюю настройку окружения: ты сразу попадаешь в рабочую среду,
+              открываешь лабораторию и видишь, что именно получилось.
+            </p>
+          </div>
+
+          <div class="step-grid">
+            <article class="step-card">
+              <span>01</span>
+              <h3>Создай аккаунт</h3>
+              <p>Регистрация занимает минуту, а сессия хранится на сервере в защищённой cookie.</p>
+            </article>
+            <article class="step-card">
+              <span>02</span>
+              <h3>Открой сервер</h3>
+              <p>Получаешь Linux-среду в браузере и выполняешь команды без локальной установки.</p>
+            </article>
+            <article class="step-card">
+              <span>03</span>
+              <h3>Пройди лабораторию</h3>
+              <p>Система проверяет результат и показывает, что уже освоено, а что будет дальше.</p>
+            </article>
+          </div>
+
+          <aside class="session-card" aria-label="Первый учебный сеанс">
+            <div class="session-card-head">
+              <span class="terminal-status"></span>
+              <strong>Первый сеанс</strong>
+              <small>~35 минут</small>
+            </div>
+            <ol>
+              <li><span>05 мин</span>Вход и запуск сервера</li>
+              <li><span>10 мин</span>Команды Linux и навигация</li>
+              <li><span>15 мин</span>Файлы, каталоги и права</li>
+              <li><span>05 мин</span>Автоматическая проверка</li>
+            </ol>
+          </aside>
+        </div>
+      </section>
+
       <section class="section tools-section" aria-labelledby="tools-title">
         <div class="section-inner">
           <div class="section-heading centered">
@@ -149,6 +208,44 @@
             <span><b class="tool-terraform"></b>Terraform</span>
             <span><b class="tool-kubernetes"></b>Kubernetes</span>
             <span><b class="tool-monitoring"></b>Monitoring</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section outcome-section" aria-labelledby="outcome-title">
+        <div class="section-inner outcome-layout">
+          <div class="outcome-copy">
+            <p class="section-kicker">Результат</p>
+            <h2 id="outcome-title">После первых лабораторий у тебя остаётся не конспект, а рабочий навык</h2>
+            <p>
+              Каждый модуль заканчивается проверяемым действием: созданный файл, поднятый контейнер,
+              настроенный pipeline или исправленная конфигурация.
+            </p>
+          </div>
+
+          <div class="outcome-grid">
+            <article>
+              <span class="outcome-dot"></span>
+              <h3>Команды руками</h3>
+              <p>Ты не смотришь видео пассивно, а выполняешь команды в своей среде.</p>
+            </article>
+            <article>
+              <span class="outcome-dot"></span>
+              <h3>Понятный следующий шаг</h3>
+              <p>Roadmap показывает, какой модуль продолжить и какой навык закрыт.</p>
+            </article>
+            <article>
+              <span class="outcome-dot"></span>
+              <h3>Проверка результата</h3>
+              <p>Задания проверяются по состоянию окружения, а не по нажатию кнопки «готово».</p>
+            </article>
+          </div>
+
+          <div class="command-strip" aria-label="Примеры команд">
+            <span>mkdir projects</span>
+            <span>docker ps</span>
+            <span>git status</span>
+            <span>rootops check</span>
           </div>
         </div>
       </section>
@@ -446,7 +543,12 @@
           <div class="pricing-card">
             <span>RootOPS Basic</span>
             <strong>0 ₽</strong>
-            <p>Первый модуль, демо-терминал, progress tracking и стартовые лаборатории.</p>
+            <p>Стартовый доступ для знакомства с платформой и первым учебным сервером.</p>
+            <ul class="pricing-includes">
+              <li>Первый модуль Linux</li>
+              <li>Демо-терминал и roadmap</li>
+              <li>Защищённый аккаунт</li>
+            </ul>
             <a class="primary-action wide-action" href="/register" data-auth-open="register">Создать аккаунт</a>
           </div>
         </div>
@@ -462,6 +564,10 @@
             <details open>
               <summary>Нужно ли что-то устанавливать?</summary>
               <p>Нет. Учебная среда запускается в браузере, а сервер выдаётся внутри платформы.</p>
+            </details>
+            <details>
+              <summary>Что я увижу после регистрации?</summary>
+              <p>Личный кабинет с сервером, текущим прогрессом, лабораториями и roadmap по модулям.</p>
             </details>
             <details>
               <summary>Подойдёт ли новичку?</summary>
