@@ -140,10 +140,15 @@ const handleAuthSubmit = async (event) => {
   const formData = new FormData(form);
   const payload = Object.fromEntries(formData.entries());
 
-  setAuthMessage("Проверяем данные...", "success");
+  setAuthMessage(mode === "register" ? "Создаём аккаунт..." : "Проверяем данные...", "success");
 
   try {
-    await requestJson(`/api/auth/${mode}`, payload);
+    const response = await requestJson(`/api/auth/${mode}`, payload);
+    if (response.requiresVerification) {
+      form.reset();
+      setAuthMessage(response.message || "Аккаунт создан. Проверь почту и перейди по ссылке.", "success");
+      return;
+    }
     setAuthMessage("Готово. Открываем кабинет...", "success");
     window.location.assign("/dashboard");
   } catch (error) {
@@ -242,6 +247,20 @@ window.addEventListener("keydown", (event) => {
 });
 
 const initialAuthMode = new URLSearchParams(window.location.search).get("auth");
+const initialVerifyState = new URLSearchParams(window.location.search).get("verify");
 if (initialAuthMode === "login" || initialAuthMode === "register") {
-  openAuth(initialAuthMode);
+  openAuth(initialAuthMode).then(() => {
+    if (initialVerifyState === "expired") {
+      setAuthMessage("Ссылка подтверждения устарела. Войди ещё раз - мы отправим новую.", "error");
+    }
+    if (initialVerifyState === "missing") {
+      setAuthMessage("Ссылка подтверждения некорректная.", "error");
+    }
+    if (initialVerifyState === "required") {
+      setAuthMessage("Сначала подтверди почту. После входа мы отправим новую ссылку.", "error");
+    }
+    if (initialVerifyState === "success") {
+      setAuthMessage("Почта подтверждена. Теперь можно войти.", "success");
+    }
+  });
 }

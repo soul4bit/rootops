@@ -1,4 +1,7 @@
 tmp/
+.env
+.env.*
+!.env.example
 rootops_actions*
 data/
 *.db

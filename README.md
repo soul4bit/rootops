@@ -51,6 +51,12 @@ ROOTOPS_PORT=8080
 ROOTOPS_DATA_DIR=./data
 ROOTOPS_DB=./data/rootops.sqlite3
 ROOTOPS_COOKIE_SECURE=1
+ROOTOPS_PUBLIC_URL=https://rootops.su
+ROOTOPS_SMTP_HOST=smtp.beget.com
+ROOTOPS_SMTP_PORT=2525
+ROOTOPS_SMTP_USERNAME=verification@rootops.su
+ROOTOPS_SMTP_PASSWORD=<mailbox-password>
+ROOTOPS_SMTP_FROM=RootOPS <verification@rootops.su>
 ```
 
 Для HTTPS production-окружения включи secure-cookie:
@@ -59,11 +65,14 @@ ROOTOPS_COOKIE_SECURE=1
 ROOTOPS_COOKIE_SECURE=1 go run ./cmd/rootops
 ```
 
+Локально можно создать `.env` рядом с `go.mod`. Файл игнорируется git, поэтому пароль от почты не попадёт в репозиторий. Шаблон лежит в `.env.example`.
+
 ## Auth MVP
 
 Сейчас реализовано:
 
 - регистрация и вход через `/api/auth/register` и `/api/auth/login`;
+- подтверждение email через одноразовую ссылку `/verify-email`;
 - bcrypt для хранения паролей;
 - серверные сессии в SQLite;
 - cookie `rootops_session` с `HttpOnly` и `SameSite=Lax`;

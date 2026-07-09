@@ -7,12 +7,14 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"net/url"
 	"path/filepath"
 	"strings"
 	"time"
 
 	"github.com/soul4bit/rootops/internal/auth"
 	"github.com/soul4bit/rootops/internal/config"
+	"github.com/soul4bit/rootops/internal/email"
 	"github.com/soul4bit/rootops/internal/storage"
 )
 
@@ -25,6 +27,7 @@ type Server struct {
 	cfg       config.Config
 	store     *storage.Store
 	templates *template.Template
+	email     *email.Sender
 	limiter   *auth.RateLimiter
 	mux       *http.ServeMux
 	assets    http.Handler
@@ -46,9 +49,16 @@ func NewServer(cfg config.Config, store *storage.Store) (*Server, error) {
 		cfg:       cfg,
 		store:     store,
 		templates: templates,
-		limiter:   auth.NewRateLimiter(5 * time.Minute),
-		mux:       http.NewServeMux(),
-		assets:    http.StripPrefix("/assets/", http.FileServer(http.Dir(filepath.Join(cfg.ProjectRoot, "assets")))),
+		email: email.NewSender(email.Config{
+			Host:     cfg.SMTPHost,
+			Port:     cfg.SMTPPort,
+			Username: cfg.SMTPUsername,
+			Password: cfg.SMTPPassword,
+			From:     cfg.SMTPFrom,
+		}),
+		limiter: auth.NewRateLimiter(5 * time.Minute),
+		mux:     http.NewServeMux(),
+		assets:  http.StripPrefix("/assets/", http.FileServer(http.Dir(filepath.Join(cfg.ProjectRoot, "assets")))),
 	}
 	server.routes()
 
@@ -65,6 +75,7 @@ func (server *Server) routes() {
 	server.mux.HandleFunc("/api/auth/register", server.handleRegister)
 	server.mux.HandleFunc("/api/auth/login", server.handleLogin)
 	server.mux.HandleFunc("/api/auth/logout", server.handleLogoutJSON)
+	server.mux.HandleFunc("/verify-email", server.handleVerifyEmail)
 	server.mux.HandleFunc("/dashboard", server.handleDashboard)
 	server.mux.HandleFunc("/login", server.redirectToAuth("login"))
 	server.mux.HandleFunc("/register", server.redirectToAuth("register"))
@@ -99,7 +110,7 @@ func (server *Server) handleMe(w http.ResponseWriter, r *http.Request) {
 	}
 
 	user, err := server.store.UserByID(r.Context(), state.session.UserID.Int64)
-	if err != nil {
+	if err != nil || user.EmailVerifiedAt == 0 {
 		server.writeJSON(w, http.StatusOK, map[string]bool{"authenticated": false})
 		return
 	}
@@ -149,7 +160,8 @@ func (server *Server) handleRegister(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userID, err := server.store.CreateUser(r.Context(), name, email, passwordHash, time.Now().Unix())
+	now := time.Now().Unix()
+	userID, err := server.store.CreateUser(r.Context(), name, email, passwordHash, now)
 	if err != nil {
 		if storage.IsDuplicate(err) {
 			server.errorJSON(w, http.StatusConflict, "Аккаунт с таким email уже существует.")
@@ -159,14 +171,26 @@ func (server *Server) handleRegister(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, csrfToken, err := server.createSession(r, &userID, state.token)
-	if err != nil {
-		server.errorJSON(w, http.StatusInternalServerError, "Не удалось открыть сессию.")
-		return
+	user := &storage.User{
+		ID:           userID,
+		Email:        email,
+		Name:         name,
+		PasswordHash: passwordHash,
+		CreatedAt:    now,
 	}
 
-	server.setSessionCookie(w, token, int(server.cfg.SessionTTL.Seconds()))
-	server.writeJSON(w, http.StatusCreated, map[string]any{"ok": true, "csrfToken": csrfToken})
+	message := "Аккаунт создан. Мы отправили письмо со ссылкой для подтверждения почты."
+	if err := server.issueEmailVerification(r, user); err != nil {
+		log.Printf("send verification email: %v", err)
+		message = "Аккаунт создан, но письмо сейчас не отправилось. Попробуй войти позже - мы отправим ссылку ещё раз."
+	}
+
+	server.writeJSON(w, http.StatusCreated, map[string]any{
+		"ok":                   true,
+		"requiresVerification": true,
+		"message":              message,
+		"csrfToken":            state.session.CSRFToken,
+	})
 }
 
 func (server *Server) handleLogin(w http.ResponseWriter, r *http.Request) {
@@ -195,6 +219,15 @@ func (server *Server) handleLogin(w http.ResponseWriter, r *http.Request) {
 		server.errorJSON(w, http.StatusUnauthorized, "Неверный email или пароль.")
 		return
 	}
+	if user.EmailVerifiedAt == 0 {
+		message := "Почта не подтверждена. Мы отправили новую ссылку для подтверждения."
+		if err := server.issueEmailVerification(r, user); err != nil {
+			log.Printf("resend verification email: %v", err)
+			message = "Почта не подтверждена. Сейчас не удалось отправить письмо, попробуй позже."
+		}
+		server.errorJSON(w, http.StatusForbidden, message)
+		return
+	}
 
 	userID := user.ID
 	token, csrfToken, err := server.createSession(r, &userID, state.token)
@@ -205,6 +238,39 @@ func (server *Server) handleLogin(w http.ResponseWriter, r *http.Request) {
 
 	server.setSessionCookie(w, token, int(server.cfg.SessionTTL.Seconds()))
 	server.writeJSON(w, http.StatusOK, map[string]any{"ok": true, "csrfToken": csrfToken})
+}
+
+func (server *Server) handleVerifyEmail(w http.ResponseWriter, r *http.Request) {
+	if !allowMethod(w, r, http.MethodGet) {
+		return
+	}
+
+	rawToken := strings.TrimSpace(r.URL.Query().Get("token"))
+	if rawToken == "" {
+		http.Redirect(w, r, "/?auth=login&verify=missing", http.StatusFound)
+		return
+	}
+
+	user, err := server.store.VerifyEmailByToken(r.Context(), auth.TokenHash(rawToken), time.Now().Unix())
+	if err != nil {
+		if !storage.IsNotFound(err) {
+			log.Printf("verify email: %v", err)
+		}
+		http.Redirect(w, r, "/?auth=login&verify=expired", http.StatusFound)
+		return
+	}
+
+	userID := user.ID
+	oldToken := readSessionCookie(r)
+	token, _, err := server.createSession(r, &userID, oldToken)
+	if err != nil {
+		log.Printf("create verified session: %v", err)
+		http.Redirect(w, r, "/?auth=login&verify=success", http.StatusFound)
+		return
+	}
+
+	server.setSessionCookie(w, token, int(server.cfg.SessionTTL.Seconds()))
+	http.Redirect(w, r, "/dashboard?verified=1", http.StatusFound)
 }
 
 func (server *Server) handleLogoutJSON(w http.ResponseWriter, r *http.Request) {
@@ -268,6 +334,12 @@ func (server *Server) handleDashboard(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/?auth=login", http.StatusFound)
 		return
 	}
+	if user.EmailVerifiedAt == 0 {
+		_ = server.store.DeleteSession(r.Context(), auth.TokenHash(state.token))
+		server.clearSessionCookie(w)
+		http.Redirect(w, r, "/?auth=login&verify=required", http.StatusFound)
+		return
+	}
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Header().Set("Cache-Control", "no-store")
@@ -311,6 +383,76 @@ func (server *Server) redirectToAuth(mode string) http.HandlerFunc {
 		}
 		http.Redirect(w, r, fmt.Sprintf("/?auth=%s", mode), http.StatusFound)
 	}
+}
+
+func (server *Server) issueEmailVerification(r *http.Request, user *storage.User) error {
+	token, err := auth.NewToken(40)
+	if err != nil {
+		return err
+	}
+
+	now := time.Now()
+	if err := server.store.CreateEmailVerificationToken(
+		r.Context(),
+		user.ID,
+		auth.TokenHash(token),
+		now.Unix(),
+		now.Add(server.cfg.VerifyTTL).Unix(),
+	); err != nil {
+		return err
+	}
+
+	link := server.emailVerificationURL(r, token)
+	if !server.email.Configured() {
+		log.Printf("email sender is not configured; verification link for %s: %s", user.Email, link)
+		return nil
+	}
+
+	return server.email.Send(user.Email, "Подтверждение почты RootOPS", verificationEmailBody(user.Name, link, server.cfg.VerifyTTL))
+}
+
+func (server *Server) emailVerificationURL(r *http.Request, token string) string {
+	return server.publicBaseURL(r) + "/verify-email?token=" + url.QueryEscape(token)
+}
+
+func (server *Server) publicBaseURL(r *http.Request) string {
+	if server.cfg.PublicURL != "" {
+		return server.cfg.PublicURL
+	}
+
+	scheme := "http"
+	if forwardedProto := strings.TrimSpace(strings.Split(r.Header.Get("X-Forwarded-Proto"), ",")[0]); forwardedProto == "http" || forwardedProto == "https" {
+		scheme = forwardedProto
+	} else if r.TLS != nil {
+		scheme = "https"
+	}
+
+	host := r.Host
+	if host == "" {
+		host = server.cfg.Addr
+	}
+	return scheme + "://" + host
+}
+
+func verificationEmailBody(name string, link string, ttl time.Duration) string {
+	greetingName := strings.TrimSpace(name)
+	if greetingName == "" {
+		greetingName = "друг"
+	}
+
+	hours := int(ttl.Hours())
+	if hours <= 0 {
+		hours = 24
+	}
+
+	return fmt.Sprintf(`Привет, %s!
+
+Подтверди почту, чтобы открыть личный DevOps-сервер в RootOPS:
+%s
+
+Ссылка действует %d часа. Если ты не регистрировался в RootOPS, просто удали это письмо.
+
+RootOPS`, greetingName, link, hours)
 }
 
 func (server *Server) currentSession(r *http.Request, create bool) (*sessionState, error) {

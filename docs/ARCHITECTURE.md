@@ -17,7 +17,7 @@ RootOPS now uses a compact Go product monolith:
 - Backend: Go standard `net/http` application split into small internal packages.
 - Database: SQLite for local development and the first MVP.
 - Sessions: server-side sessions stored in the database.
-- Auth: email/password registration and login, bcrypt password hashing, HttpOnly cookie and CSRF tokens.
+- Auth: email/password registration and login, email verification, bcrypt password hashing, HttpOnly cookie and CSRF tokens.
 - Reverse proxy: Caddy in production.
 
 This keeps the project simple while giving us a better base for terminal sessions, lab runners and long-lived backend work.
@@ -54,6 +54,7 @@ tmp/                    Local screenshots and test files, ignored by git.
 The current MVP includes:
 
 - password hashes with bcrypt;
+- email verification tokens are stored hashed and expire after 24 hours;
 - session identifiers stored as SHA-256 hashes in the database;
 - HttpOnly session cookie with `SameSite=Lax`;
 - optional `Secure` cookie flag through `ROOTOPS_COOKIE_SECURE=1`;
