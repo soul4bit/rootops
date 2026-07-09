@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="RootOPS - практическая DevOps-платформа с курсами, лабораторными, прогрессом и реальными проектами."
+      content="RootOPS - практическая DevOps-платформа с личным учебным сервером, лабораториями, roadmap и проверкой прогресса."
     />
-    <title>RootOPS - практическое обучение DevOps</title>
+    <title>RootOPS - личный DevOps-сервер для обучения</title>
     <link rel="preload" href="assets/rootops-devops-map.png" as="image" />
     <link rel="stylesheet" href="assets/styles.css" />
     <script src="assets/app.js" defer></script>
@@ -18,78 +18,262 @@
         <span class="brand-mark" aria-hidden="true"></span>
         <span>RootOPS</span>
       </a>
+
       <nav class="site-nav" aria-label="Основная навигация">
         <a class="is-active" href="#top">Главная</a>
-        <a href="#roadmap">Курсы</a>
-        <a href="#labs">Практика</a>
-        <a href="#community">Сообщество</a>
-        <a href="#about">О проекте</a>
+        <a href="#features">Возможности</a>
+        <a href="#roadmap">Программа</a>
+        <a href="#labs">Лаборатории</a>
+        <a href="#pricing">Тарифы</a>
+        <a href="#faq">FAQ</a>
       </nav>
+
       <div class="header-actions">
-        <a class="login-action" href="#community">Войти</a>
-        <a class="signup-action" href="#roadmap">Регистрация</a>
+        <a class="login-action" href="#login-preview">Войти</a>
+        <a class="signup-action" href="#pricing">Регистрация</a>
       </div>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
+        <img class="hero-map" src="assets/rootops-devops-map.png" alt="" />
         <div class="hero-inner">
           <div class="hero-copy">
-            <p class="eyebrow">Путь в DevOps начинается здесь</p>
-            <h1 id="hero-title">Практическое обучение DevOps по шагам</h1>
+            <p class="eyebrow">DevOps-практика в браузере</p>
+            <h1 id="hero-title">Твой личный <span>DevOps-сервер</span> для обучения</h1>
             <p class="hero-lead">
-              RootOPS - это практическая платформа для тех, кто хочет стать
-              DevOps-инженером. Учитесь, выполняйте задания и собирайте реальные
-              проекты.
+              Изучай Linux, Docker, CI/CD и production-подходы через теорию, практику и живые
+              лаборатории в своём браузере.
             </p>
             <div class="hero-actions" aria-label="Быстрые действия">
-              <a class="primary-action" href="#roadmap">Начать обучение</a>
-              <a class="secondary-action" href="#roadmap">Смотреть курсы</a>
+              <a class="primary-action" href="#pricing">Начать бесплатно</a>
+              <a class="secondary-action" href="#labs">
+                <span>Как это работает</span>
+                <span class="play-dot" aria-hidden="true"></span>
+              </a>
+            </div>
+            <div class="hero-badges" aria-label="Преимущества">
+              <span>Без установки</span>
+              <span>Доступ 24/7</span>
+              <span>Практика с первого дня</span>
             </div>
           </div>
 
-          <div class="hero-visual" aria-label="DevOps схема RootOPS">
-            <img src="assets/rootops-devops-map.png" alt="" />
-            <span class="visual-label label-code">Код</span>
-            <span class="visual-label label-containers">Контейнеры</span>
-            <span class="visual-label label-cloud">Облако</span>
-            <span class="visual-label label-automation">Автоматизация</span>
-            <span class="visual-label label-security">Безопасность</span>
-            <span class="visual-label label-monitoring">Мониторинг</span>
+          <div class="terminal-card" aria-label="Демо-терминал RootOPS">
+            <div class="terminal-top">
+              <span class="terminal-status"></span>
+              <span>Демо-терминал</span>
+              <div class="window-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <div class="terminal-body">
+              <p><span>student@rootops-demo:~$</span> whoami</p>
+              <p>student</p>
+              <p><span>student@rootops-demo:~$</span> docker ps</p>
+              <div class="terminal-table" role="presentation">
+                <span>CONTAINER ID</span>
+                <span>IMAGE</span>
+                <span>STATUS</span>
+                <span>PORTS</span>
+              </div>
+              <p><span>student@rootops-demo:~$</span> rootops start</p>
+              <p class="terminal-note">
+                Чтобы запустить личный сервер, зарегистрируйтесь или войдите в аккаунт.
+              </p>
+              <p><span>student@rootops-demo:~$</span><i></i></p>
+            </div>
+            <div class="terminal-chips" aria-label="Команды">
+              <span>whoami</span>
+              <span>ls -la</span>
+              <span>docker ps</span>
+              <span>rootops start</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="feature-shell" aria-label="Возможности платформы">
+      <section class="feature-shell" id="features" aria-label="Возможности платформы">
         <div class="feature-grid">
           <article class="feature-item">
-            <span class="feature-icon icon-book" aria-hidden="true"></span>
+            <span class="feature-icon icon-theory" aria-hidden="true"></span>
             <div>
-              <h2>Пошаговое обучение</h2>
-              <p>Движение от простого к сложному с понятными объяснениями.</p>
+              <h2>Теория без воды</h2>
+              <p>Короткие конспекты и понятные объяснения перед практикой.</p>
             </div>
           </article>
           <article class="feature-item">
             <span class="feature-icon icon-terminal" aria-hidden="true"></span>
             <div>
-              <h2>Практика</h2>
-              <p>Реальные задания и проекты, приближенные к работе в IT.</p>
+              <h2>Практика сразу</h2>
+              <p>Команды выполняются в реальном окружении, а не в симуляторе.</p>
             </div>
           </article>
           <article class="feature-item">
-            <span class="feature-icon icon-progress" aria-hidden="true"></span>
+            <span class="feature-icon icon-labs" aria-hidden="true"></span>
             <div>
-              <h2>Прогресс</h2>
-              <p>Отслеживайте свой прогресс и получайте достижения.</p>
+              <h2>Живые лаборатории</h2>
+              <p>Изолированные стенды для безопасных экспериментов.</p>
             </div>
           </article>
           <article class="feature-item">
-            <span class="feature-icon icon-community" aria-hidden="true"></span>
+            <span class="feature-icon icon-check" aria-hidden="true"></span>
             <div>
-              <h2>Сообщество</h2>
-              <p>Общайтесь, задавайте вопросы и делитесь опытом.</p>
+              <h2>Проверка и прогресс</h2>
+              <p>Система проверяет задания и показывает рост навыков.</p>
             </div>
           </article>
+        </div>
+      </section>
+
+      <section class="section tools-section" aria-labelledby="tools-title">
+        <div class="section-inner">
+          <div class="section-heading centered">
+            <p class="section-kicker">Учебная среда</p>
+            <h2 id="tools-title">Что тебя ждёт в RootOPS</h2>
+            <p>Полный путь DevOps-инженера от основ Linux до production-инструментов.</p>
+          </div>
+
+          <div class="tool-grid" aria-label="Темы обучения">
+            <span><b class="tool-linux"></b>Linux</span>
+            <span><b class="tool-git"></b>Git</span>
+            <span><b class="tool-bash"></b>Bash</span>
+            <span><b class="tool-docker"></b>Docker</span>
+            <span><b class="tool-compose"></b>Compose</span>
+            <span><b class="tool-nginx"></b>Nginx</span>
+            <span><b class="tool-cicd"></b>CI/CD</span>
+            <span><b class="tool-ansible"></b>Ansible</span>
+            <span><b class="tool-terraform"></b>Terraform</span>
+            <span><b class="tool-kubernetes"></b>Kubernetes</span>
+            <span><b class="tool-monitoring"></b>Monitoring</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section server-section" aria-labelledby="server-title">
+        <div class="section-inner server-layout">
+          <article class="server-card">
+            <div class="server-card-head">
+              <span class="server-icon" aria-hidden="true"></span>
+              <strong>Твой учебный сервер</strong>
+              <span class="status-pill">Готов к работе</span>
+            </div>
+            <dl class="server-specs">
+              <div>
+                <dt>OS</dt>
+                <dd>Ubuntu 24.04</dd>
+              </div>
+              <div>
+                <dt>CPU</dt>
+                <dd>1 vCPU</dd>
+              </div>
+              <div>
+                <dt>RAM</dt>
+                <dd>512 MB</dd>
+              </div>
+              <div>
+                <dt>Сессия</dt>
+                <dd>59:47</dd>
+              </div>
+            </dl>
+            <a class="primary-action wide-action" href="#pricing">Получить сервер</a>
+          </article>
+
+          <div class="server-copy">
+            <p class="section-kicker">Личная лаборатория</p>
+            <h2 id="server-title">Каждый студент получает личный учебный сервер</h2>
+            <p>
+              Полноценная Linux-среда, где можно выполнять команды, устанавливать пакеты,
+              запускать сервисы и учиться на практике.
+            </p>
+            <ul class="check-list">
+              <li>Изолированная среда</li>
+              <li>Сброс в один клик</li>
+              <li>Безопасно и стабильно</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dashboard-section" id="login-preview" aria-labelledby="dashboard-title">
+        <div class="section-inner dashboard-layout">
+          <div class="dashboard-copy">
+            <p class="section-kicker">Личный кабинет</p>
+            <h2 id="dashboard-title">Видишь сервер, прогресс и следующие шаги в одном месте</h2>
+            <p>
+              Интерфейс собран вокруг ежедневной практики: продолжить лабораторию, открыть
+              терминал, проверить задание и двигаться по roadmap.
+            </p>
+          </div>
+
+          <div class="dashboard-preview" aria-label="Превью личного кабинета">
+            <aside class="preview-sidebar">
+              <div class="mini-brand">
+                <span class="brand-mark" aria-hidden="true"></span>
+                <strong>RootOPS</strong>
+              </div>
+              <span class="nav-pill is-active">Главная</span>
+              <span class="nav-pill">Мой сервер</span>
+              <span class="nav-pill">Лаборатории</span>
+              <span class="nav-pill">Roadmap</span>
+              <span class="nav-pill">Задания</span>
+              <div class="student-mini">
+                <span>IP</span>
+                <strong>Иван Петров</strong>
+                <small>Student</small>
+              </div>
+            </aside>
+
+            <div class="preview-main">
+              <div class="preview-topbar">
+                <strong>Главная</strong>
+                <span class="search-field">Поиск</span>
+              </div>
+              <div class="preview-grid">
+                <article class="preview-panel server-panel">
+                  <div>
+                    <span>Мой учебный сервер</span>
+                    <strong>Онлайн</strong>
+                  </div>
+                  <dl>
+                    <div><dt>OS</dt><dd>Ubuntu 24.04</dd></div>
+                    <div><dt>CPU</dt><dd>1 vCPU</dd></div>
+                    <div><dt>RAM</dt><dd>512 MB</dd></div>
+                  </dl>
+                  <button type="button">Открыть терминал</button>
+                </article>
+
+                <article class="preview-panel progress-panel">
+                  <span>Текущий прогресс</span>
+                  <strong>Linux и терминал</strong>
+                  <div class="progress-row">
+                    <span>35%</span>
+                    <span class="progress-bar"><span style="width: 35%"></span></span>
+                  </div>
+                </article>
+
+                <article class="preview-panel learning-panel">
+                  <span>Продолжи обучение</span>
+                  <strong>Работа с файлами</strong>
+                  <p>Основы работы с системой, файлами, правами и процессами.</p>
+                  <button type="button">Продолжить лабораторию</button>
+                </article>
+
+                <article class="preview-panel roadmap-panel">
+                  <span>Твой путь в DevOps</span>
+                  <ol>
+                    <li class="is-current"><span>01</span>Linux</li>
+                    <li><span>02</span>Git</li>
+                    <li><span>03</span>Docker</li>
+                    <li><span>04</span>CI/CD</li>
+                    <li><span>05</span>Kubernetes</li>
+                  </ol>
+                </article>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -97,10 +281,11 @@
         <div class="section-inner">
           <div class="section-heading">
             <div>
-              <h2 id="roadmap-title">Ваш путь обучения</h2>
-              <p>Выбирайте направление и начинайте свой путь в DevOps.</p>
+              <p class="section-kicker">Программа</p>
+              <h2 id="roadmap-title">Roadmap от нуля до уверенной практики</h2>
+              <p>Выбирай направление и проходи модули через лаборатории с проверкой результата.</p>
             </div>
-            <a class="section-link" href="#roadmap">Смотреть все курсы</a>
+            <a class="section-link" href="#labs">Открыть лаборатории</a>
           </div>
 
           <div class="filters" aria-label="Фильтр модулей">
@@ -123,17 +308,17 @@
               <span class="course-number">01</span>
               <span class="course-icon linux-icon" aria-hidden="true"></span>
               <h3>Linux и терминал</h3>
-              <p>Основы работы в Linux, команды, файловая система и права.</p>
+              <p>Файловая система, права, процессы, пакеты, SSH и базовая диагностика.</p>
               <div class="progress-row">
-                <span>0%</span>
-                <span class="progress-bar"><span style="width: 0%"></span></span>
+                <span>35%</span>
+                <span class="progress-bar"><span style="width: 35%"></span></span>
               </div>
             </article>
             <article class="course-card" data-stage="foundation">
               <span class="course-number">02</span>
               <span class="course-icon git-icon" aria-hidden="true"></span>
               <h3>Git и GitHub</h3>
-              <p>Системы контроля версий, ветки, pull request и релизы.</p>
+              <p>История изменений, ветки, pull request, релизы и командная работа.</p>
               <div class="progress-row">
                 <span>0%</span>
                 <span class="progress-bar"><span style="width: 0%"></span></span>
@@ -143,7 +328,7 @@
               <span class="course-number">03</span>
               <span class="course-icon docker-icon" aria-hidden="true"></span>
               <h3>Docker</h3>
-              <p>Контейнеризация приложений, образы, контейнеры и Compose.</p>
+              <p>Образы, контейнеры, Compose, volume, network и healthcheck.</p>
               <div class="progress-row">
                 <span>0%</span>
                 <span class="progress-bar"><span style="width: 0%"></span></span>
@@ -153,7 +338,7 @@
               <span class="course-number">04</span>
               <span class="course-icon cicd-icon" aria-hidden="true"></span>
               <h3>CI/CD</h3>
-              <p>Непрерывная интеграция, доставка приложений и rollback.</p>
+              <p>Сборка, тесты, delivery, deploy, rollback и секреты в pipeline.</p>
               <div class="progress-row">
                 <span>0%</span>
                 <span class="progress-bar"><span style="width: 0%"></span></span>
@@ -161,9 +346,9 @@
             </article>
             <article class="course-card" data-stage="production">
               <span class="course-number">05</span>
-              <span class="course-icon cloud-icon" aria-hidden="true"></span>
-              <h3>Облака и инфраструктура</h3>
-              <p>Работа с облачными провайдерами и инфраструктурой как код.</p>
+              <span class="course-icon kube-icon" aria-hidden="true"></span>
+              <h3>Kubernetes</h3>
+              <p>Pods, service, ingress, rollout, namespaces и базовая эксплуатация.</p>
               <div class="progress-row">
                 <span>0%</span>
                 <span class="progress-bar"><span style="width: 0%"></span></span>
@@ -174,70 +359,117 @@
       </section>
 
       <section class="section practice-section" id="labs" aria-labelledby="labs-title">
-        <div class="section-inner practice-layout">
+        <div class="section-inner">
+          <div class="section-heading centered">
+            <p class="section-kicker">Лаборатория</p>
+            <h2 id="labs-title">Теория, терминал и проверка в одном рабочем пространстве</h2>
+            <p>Задания выглядят как реальные инженерные задачи и заканчиваются проверяемым результатом.</p>
+          </div>
+
+          <div class="lab-workspace" aria-label="Пример лаборатории">
+            <aside class="lab-panel lab-sidebar">
+              <span>Содержание</span>
+              <ol>
+                <li class="is-done">Введение</li>
+                <li class="is-current">Что такое Linux</li>
+                <li>Файловая система</li>
+                <li>Основные команды</li>
+                <li>Практика</li>
+              </ol>
+            </aside>
+
+            <article class="lab-panel lab-theory">
+              <span>Теория</span>
+              <h3>Работа с файлами и каталогами</h3>
+              <p>
+                В Linux всё начинается с файловой системы. Команды помогают создавать,
+                перемещать, читать и проверять структуру проекта.
+              </p>
+              <ul>
+                <li><code>ls</code> показывает содержимое каталога</li>
+                <li><code>cd</code> меняет текущий каталог</li>
+                <li><code>mkdir</code> создаёт директорию</li>
+                <li><code>touch</code> создаёт файл</li>
+              </ul>
+            </article>
+
+            <article class="lab-panel lab-task">
+              <span>Задание</span>
+              <ol>
+                <li>Создай каталог projects</li>
+                <li>Перейди в него</li>
+                <li>Создай файл hello.txt</li>
+                <li>Выведи список файлов</li>
+              </ol>
+              <button type="button">Проверить задание</button>
+            </article>
+
+            <article class="lab-panel lab-terminal">
+              <div class="terminal-top">
+                <span class="terminal-status"></span>
+                <span>student@rootops-server</span>
+              </div>
+              <div class="terminal-body compact">
+                <p><span>student@rootops-server:~$</span> mkdir projects</p>
+                <p><span>student@rootops-server:~$</span> cd projects</p>
+                <p><span>student@rootops-server:~/projects$</span> touch hello.txt</p>
+                <p><span>student@rootops-server:~/projects$</span> ls -la</p>
+                <p>drwxr-xr-x 2 student student 4096 Jul 9 12:30 .</p>
+                <p>-rw-r--r-- 1 student student 0 Jul 9 12:30 hello.txt</p>
+                <p><span>student@rootops-server:~/projects$</span> rootops check</p>
+                <p class="success-line">3 задания выполнены</p>
+              </div>
+            </article>
+
+            <article class="lab-panel check-result">
+              <span class="trophy" aria-hidden="true"></span>
+              <div>
+                <h3>Задание выполнено!</h3>
+                <p>Каталог создан, файл найден, список файлов выведен.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section pricing-section" id="pricing" aria-labelledby="pricing-title">
+        <div class="section-inner pricing-layout">
           <div>
-            <p class="section-kicker">Практика</p>
-            <h2 id="labs-title">Лабы как реальные рабочие задачи</h2>
+            <p class="section-kicker">Старт</p>
+            <h2 id="pricing-title">Начни бесплатно и собери первую лабораторию</h2>
             <p>
-              Каждый блок заканчивается проверяемым результатом: сервис поднят,
-              pipeline прошёл, мониторинг видит метрики, rollback отрабатывает.
+              Получи учебный сервер, открой первый модуль Linux и продолжай путь по мере готовности.
             </p>
           </div>
-          <div class="lab-list">
-            <article>
-              <span>Lab 01</span>
-              <h3>Static deploy через Caddy</h3>
-              <p>Домен, HTTPS, firewall, директория сайта и первый автоматический релиз.</p>
-            </article>
-            <article>
-              <span>Lab 02</span>
-              <h3>Dockerized app</h3>
-              <p>Сборка образа, Compose, переменные окружения и healthcheck.</p>
-            </article>
-            <article>
-              <span>Lab 03</span>
-              <h3>Pipeline с rollback</h3>
-              <p>GitHub Actions, SSH deploy, проверка результата и быстрый откат.</p>
-            </article>
+
+          <div class="pricing-card">
+            <span>RootOPS Basic</span>
+            <strong>0 ₽</strong>
+            <p>Первый модуль, демо-терминал, progress tracking и стартовые лаборатории.</p>
+            <a class="primary-action wide-action" href="#top">Создать аккаунт</a>
           </div>
         </div>
       </section>
 
-      <section class="section community-section" id="community" aria-labelledby="community-title">
-        <div class="section-inner community-panel">
+      <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+        <div class="section-inner faq-layout">
           <div>
-            <p class="section-kicker">Сообщество</p>
-            <h2 id="community-title">Учиться проще, когда рядом есть инженеры.</h2>
+            <p class="section-kicker">FAQ</p>
+            <h2 id="faq-title">Коротко о формате</h2>
           </div>
-          <p>
-            В будущем здесь появятся обсуждения лабораторных, вопросы по ошибкам,
-            разборы инфраструктурных схем и совместные проекты.
-          </p>
-        </div>
-      </section>
-
-      <section class="section about-section" id="about" aria-labelledby="about-title">
-        <div class="section-inner about-grid">
-          <div>
-            <p class="section-kicker">О проекте</p>
-            <h2 id="about-title">RootOPS строится как учебная production-среда.</h2>
-          </div>
-          <div class="about-points">
-            <div>
-              <span>01</span>
-              <strong>Сначала база</strong>
-              <p>Linux, сети, Git и терминал без пропусков.</p>
-            </div>
-            <div>
-              <span>02</span>
-              <strong>Потом доставка</strong>
-              <p>Docker, CI/CD, IaC и автоматизация релизов.</p>
-            </div>
-            <div>
-              <span>03</span>
-              <strong>Затем эксплуатация</strong>
-              <p>Kubernetes, observability, security и SRE-подход.</p>
-            </div>
+          <div class="faq-list">
+            <details open>
+              <summary>Нужно ли что-то устанавливать?</summary>
+              <p>Нет. Учебная среда запускается в браузере, а сервер выдаётся внутри платформы.</p>
+            </details>
+            <details>
+              <summary>Подойдёт ли новичку?</summary>
+              <p>Да. Путь начинается с Linux и терминала, а затем постепенно ведёт к Docker и CI/CD.</p>
+            </details>
+            <details>
+              <summary>Как проверяются задания?</summary>
+              <p>Проверка смотрит на результат в окружении: файлы, команды, сервисы и настройки.</p>
+            </details>
           </div>
         </div>
       </section>
