@@ -55,7 +55,10 @@ func (sender *Sender) Send(to string, subject string, body string) error {
 
 	var auth smtp.Auth
 	if sender.cfg.Username != "" || sender.cfg.Password != "" {
-		auth = smtp.PlainAuth("", sender.cfg.Username, sender.cfg.Password, host)
+		auth = loginAuth{
+			username: sender.cfg.Username,
+			password: sender.cfg.Password,
+		}
 	}
 
 	message := strings.Join([]string{
@@ -73,4 +76,29 @@ func (sender *Sender) Send(to string, subject string, body string) error {
 		return fmt.Errorf("send email: %w", err)
 	}
 	return nil
+}
+
+type loginAuth struct {
+	username string
+	password string
+}
+
+func (auth loginAuth) Start(*smtp.ServerInfo) (string, []byte, error) {
+	return "LOGIN", nil, nil
+}
+
+func (auth loginAuth) Next(challenge []byte, more bool) ([]byte, error) {
+	if !more {
+		return nil, nil
+	}
+
+	prompt := strings.ToLower(string(challenge))
+	switch {
+	case strings.Contains(prompt, "username"):
+		return []byte(auth.username), nil
+	case strings.Contains(prompt, "password"):
+		return []byte(auth.password), nil
+	default:
+		return []byte(auth.username), nil
+	}
 }
