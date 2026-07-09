@@ -11,22 +11,21 @@ The product needs three layers:
 
 ## Chosen Stack
 
-For the first working version, RootOPS stays intentionally simple:
+RootOPS now uses a compact Go product monolith:
 
 - Frontend: server-rendered HTML plus static CSS and small vanilla JavaScript.
-- Backend: Python application with clear modules and no framework dependency yet.
-- Database: SQLite for local development.
+- Backend: Go standard `net/http` application split into small internal packages.
+- Database: SQLite for local development and the first MVP.
 - Sessions: server-side sessions stored in the database.
-- Auth: email/password registration and login, PBKDF2 password hashing, HttpOnly cookie and CSRF tokens.
+- Auth: email/password registration and login, bcrypt password hashing, HttpOnly cookie and CSRF tokens.
 - Reverse proxy: Caddy in production.
 
-This lets us ship fast while keeping the code shaped like a real product.
+This keeps the project simple while giving us a better base for terminal sessions, lab runners and long-lived backend work.
 
 ## Future Production Stack
 
 When RootOPS grows past the MVP, the same boundaries should move to:
 
-- Backend API: FastAPI or another ASGI framework.
 - Database: PostgreSQL.
 - Session and rate-limit storage: Redis.
 - Terminal transport: WebSocket endpoint.
@@ -38,31 +37,23 @@ When RootOPS grows past the MVP, the same boundaries should move to:
 
 ```text
 assets/                 Public static assets.
+cmd/rootops/            Go application entrypoint.
+internal/auth/          Passwords, tokens, validation and rate limiting.
+internal/config/        Runtime settings.
+internal/storage/       SQLite schema and queries.
+internal/web/           HTTP routes, cookies, CSRF and rendering.
+web/templates/          Protected HTML templates.
 index.html              Public landing page.
-server/rootops_auth.py  Backward-compatible app entrypoint.
-server/rootops_app/     Backend application modules.
 docs/                   Product and architecture notes.
 data/                   Local SQLite database, ignored by git.
 tmp/                    Local screenshots and test files, ignored by git.
-```
-
-## Backend Modules
-
-```text
-server/rootops_app/config.py      Runtime settings and security headers.
-server/rootops_app/database.py    SQLite connection and schema setup.
-server/rootops_app/security.py    Password hashing, cookies and CSRF helpers.
-server/rootops_app/auth.py        User/session logic and validation.
-server/rootops_app/templates.py   Minimal safe template rendering.
-server/rootops_app/handlers.py    HTTP routes and request handling.
-server/rootops_app/main.py        Server bootstrap.
 ```
 
 ## Security Baseline
 
 The current MVP includes:
 
-- password hashes with PBKDF2-HMAC-SHA256 and per-user salt;
+- password hashes with bcrypt;
 - session identifiers stored as SHA-256 hashes in the database;
 - HttpOnly session cookie with `SameSite=Lax`;
 - optional `Secure` cookie flag through `ROOTOPS_COOKIE_SECURE=1`;

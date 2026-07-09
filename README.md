@@ -4,28 +4,28 @@ RootOPS - практическая DevOps-платформа: лендинг, у
 
 ## Стек и структура
 
-Стартовая версия собрана как простой Python product monolith:
+Проект переводится на Go product monolith:
 
 - публичная главная: `index.html`, `assets/`;
-- backend: `server/rootops_app/`;
-- точка запуска: `server/rootops_auth.py`;
-- шаблоны защищённых страниц: `server/rootops_app/templates/`;
-- локальная база: SQLite в `data/`.
+- backend: `cmd/rootops/` и `internal/`;
+- защищённые шаблоны: `web/templates/`;
+- локальная база: SQLite в `data/`;
+- авторизация: email/password, bcrypt, серверные сессии, HttpOnly cookie и CSRF.
 
-Архитектура и дальнейший production-путь описаны в `docs/ARCHITECTURE.md`.
+Архитектура и production-путь описаны в `docs/ARCHITECTURE.md`.
 
 ## Локальный запуск
 
-Статический просмотр по-прежнему возможен:
+Статический просмотр главной по-прежнему возможен:
 
 ```bash
 python -m http.server 8080
 ```
 
-Для регистрации, входа и защищённого кабинета запускай auth-сервер:
+Для регистрации, входа и защищённого кабинета запускай Go-сервер:
 
 ```bash
-python server/rootops_auth.py
+go run ./cmd/rootops
 ```
 
 По умолчанию он открывает:
@@ -42,29 +42,40 @@ data/rootops.sqlite3
 
 Файл базы не коммитится.
 
+## Настройки
+
+```text
+ROOTOPS_ADDR=127.0.0.1:8080
+ROOTOPS_HOST=127.0.0.1
+ROOTOPS_PORT=8080
+ROOTOPS_DATA_DIR=./data
+ROOTOPS_DB=./data/rootops.sqlite3
+ROOTOPS_COOKIE_SECURE=1
+```
+
+Для HTTPS production-окружения включи secure-cookie:
+
+```bash
+ROOTOPS_COOKIE_SECURE=1 go run ./cmd/rootops
+```
+
 ## Auth MVP
 
 Сейчас реализовано:
 
 - регистрация и вход через `/api/auth/register` и `/api/auth/login`;
-- PBKDF2-HMAC-SHA256 для хранения паролей;
+- bcrypt для хранения паролей;
 - серверные сессии в SQLite;
 - cookie `rootops_session` с `HttpOnly` и `SameSite=Lax`;
-- CSRF-токен для изменяющих запросов;
+- CSRF-токен для изменяющих auth-запросов;
 - базовый rate limit на регистрацию и вход;
 - защищённый `/dashboard`;
 - logout через POST.
 
-Для HTTPS production-окружения включи secure-cookie:
-
-```bash
-ROOTOPS_COOKIE_SECURE=1 python server/rootops_auth.py
-```
-
 ## Production
 
 Текущий GitHub Actions workflow разворачивает только статическую часть сайта в `/var/www/rootops`.
-Папка `server/` намеренно исключена из статического deploy, чтобы backend-код не раздавался Caddy как публичные файлы.
+Backend-код (`cmd/`, `internal/`, `web/`, `go.mod`, `go.sum`) намеренно исключён из статического deploy, чтобы Caddy не раздавал исходники как публичные файлы.
 
 Канонический адрес:
 
@@ -86,7 +97,15 @@ rootops.su {
 }
 ```
 
-Когда auth-сервер будет готов к production, нужно будет добавить отдельный systemd-сервис и reverse proxy для `/api/*`, `/login`, `/register`, `/logout` и `/dashboard`.
+Для production backend нужно добавить отдельный systemd-сервис Go-приложения и reverse proxy для:
+
+```text
+/api/*
+/login
+/register
+/logout
+/dashboard
+```
 
 ## Автодеплой из GitHub
 

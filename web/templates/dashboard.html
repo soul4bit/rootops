@@ -20,7 +20,7 @@
         <a href="/dashboard">Roadmap</a>
       </nav>
       <form class="logout-form" method="post" action="/logout">
-        <input type="hidden" name="csrfToken" value="{{ csrf_token }}" />
+        <input type="hidden" name="csrfToken" value="{{ .CSRFToken }}" />
         <button class="login-action" type="submit">Выйти</button>
       </form>
     </header>
@@ -29,8 +29,8 @@
       <section class="section-inner dashboard-home">
         <div class="dashboard-welcome">
           <p class="section-kicker">Личный кабинет</p>
-          <h1>Добро пожаловать, {{ user_name }}</h1>
-          <p>{{ user_email }}</p>
+          <h1>Добро пожаловать, {{ .UserName }}</h1>
+          <p>{{ .UserEmail }}</p>
         </div>
 
         <div class="dashboard-preview live-dashboard" aria-label="Кабинет RootOPS">
@@ -45,8 +45,8 @@
             <span class="nav-pill">Roadmap</span>
             <span class="nav-pill">Задания</span>
             <div class="student-mini">
-              <span>{{ user_initials }}</span>
-              <strong>{{ user_name }}</strong>
+              <span>{{ .UserInitials }}</span>
+              <strong>{{ .UserName }}</strong>
               <small>Student</small>
             </div>
           </aside>
@@ -103,4 +103,3 @@
     </main>
   </body>
 </html>
-

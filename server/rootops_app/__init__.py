@@ -1,2 +1,0 @@
-"""RootOPS backend application."""
-

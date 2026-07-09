@@ -95,7 +95,7 @@ const openAuth = async (mode = "login") => {
     await loadCsrfToken();
   } catch {
     setAuthMessage(
-      "Для защищённого входа запусти auth-сервер: python server/rootops_auth.py",
+      "Для защищённого входа запусти RootOPS: go run ./cmd/rootops",
       "error",
     );
   }

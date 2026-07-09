@@ -58,6 +58,12 @@ jobs:
             --exclude '.gitignore' \
             --exclude 'README.md' \
             --exclude 'server' \
+            --exclude 'cmd' \
+            --exclude 'internal' \
+            --exclude 'web' \
+            --exclude 'docs' \
+            --exclude 'go.mod' \
+            --exclude 'go.sum' \
             --exclude 'data' \
             --exclude 'tmp' \
             --exclude '*.db' \
