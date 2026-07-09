@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RootOPS - кабинет</title>
+    <link rel="icon" href="/assets/rootops-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body class="dashboard-body">
+    <header class="site-header is-scrolled app-header">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/assets/rootops-logo.svg" alt="" />
+        <span>RootOPS</span>
+      </a>
+      <nav class="site-nav" aria-label="Навигация кабинета">
+        <a class="is-active" href="/dashboard">Главная</a>
+        <a href="/dashboard">Мой сервер</a>
+        <a href="/dashboard">Лаборатории</a>
+        <a href="/dashboard">Roadmap</a>
+      </nav>
+      <form class="logout-form" method="post" action="/logout">
+        <input type="hidden" name="csrfToken" value="{{ csrf_token }}" />
+        <button class="login-action" type="submit">Выйти</button>
+      </form>
+    </header>
+
+    <main class="protected-dashboard">
+      <section class="section-inner dashboard-home">
+        <div class="dashboard-welcome">
+          <p class="section-kicker">Личный кабинет</p>
+          <h1>Добро пожаловать, {{ user_name }}</h1>
+          <p>{{ user_email }}</p>
+        </div>
+
+        <div class="dashboard-preview live-dashboard" aria-label="Кабинет RootOPS">
+          <aside class="preview-sidebar">
+            <div class="mini-brand">
+              <img class="brand-logo" src="/assets/rootops-logo.svg" alt="" />
+              <strong>RootOPS</strong>
+            </div>
+            <span class="nav-pill is-active">Главная</span>
+            <span class="nav-pill">Мой сервер</span>
+            <span class="nav-pill">Лаборатории</span>
+            <span class="nav-pill">Roadmap</span>
+            <span class="nav-pill">Задания</span>
+            <div class="student-mini">
+              <span>{{ user_initials }}</span>
+              <strong>{{ user_name }}</strong>
+              <small>Student</small>
+            </div>
+          </aside>
+
+          <div class="preview-main">
+            <div class="preview-topbar">
+              <strong>Главная</strong>
+              <span class="search-field">Поиск</span>
+            </div>
+            <div class="preview-grid">
+              <article class="preview-panel server-panel">
+                <div>
+                  <span>Мой учебный сервер</span>
+                  <strong>Онлайн</strong>
+                </div>
+                <dl>
+                  <div><dt>OS</dt><dd>Ubuntu 24.04</dd></div>
+                  <div><dt>CPU</dt><dd>1 vCPU</dd></div>
+                  <div><dt>RAM</dt><dd>512 MB</dd></div>
+                </dl>
+                <button type="button">Открыть терминал</button>
+              </article>
+
+              <article class="preview-panel progress-panel">
+                <span>Текущий прогресс</span>
+                <strong>Linux и терминал</strong>
+                <div class="progress-row">
+                  <span>35%</span>
+                  <span class="progress-bar"><span style="width: 35%"></span></span>
+                </div>
+              </article>
+
+              <article class="preview-panel learning-panel">
+                <span>Продолжи обучение</span>
+                <strong>Работа с файлами</strong>
+                <p>Основы работы с системой, файлами, правами и процессами.</p>
+                <button type="button">Продолжить лабораторию</button>
+              </article>
+
+              <article class="preview-panel roadmap-panel">
+                <span>Твой путь в DevOps</span>
+                <ol>
+                  <li class="is-current"><span>01</span>Linux</li>
+                  <li><span>02</span>Git</li>
+                  <li><span>03</span>Docker</li>
+                  <li><span>04</span>CI/CD</li>
+                  <li><span>05</span>Kubernetes</li>
+                </ol>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+

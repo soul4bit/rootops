@@ -2,6 +2,18 @@
 
 RootOPS - практическая DevOps-платформа: лендинг, учебный roadmap, лаборатории и стартовый контур защищённой авторизации.
 
+## Стек и структура
+
+Стартовая версия собрана как простой Python product monolith:
+
+- публичная главная: `index.html`, `assets/`;
+- backend: `server/rootops_app/`;
+- точка запуска: `server/rootops_auth.py`;
+- шаблоны защищённых страниц: `server/rootops_app/templates/`;
+- локальная база: SQLite в `data/`.
+
+Архитектура и дальнейший production-путь описаны в `docs/ARCHITECTURE.md`.
+
 ## Локальный запуск
 
 Статический просмотр по-прежнему возможен:
