@@ -57,5 +57,12 @@ jobs:
             --exclude '.github' \
             --exclude '.gitignore' \
             --exclude 'README.md' \
+            --exclude 'server' \
+            --exclude 'data' \
+            --exclude 'tmp' \
+            --exclude '*.db' \
+            --exclude '*.sqlite' \
+            --exclude '*.sqlite3' \
+            --exclude '__pycache__' \
             -e "ssh -i ~/.ssh/rootops_deploy_key -p ${DEPLOY_PORT:-22}" \
             ./ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"

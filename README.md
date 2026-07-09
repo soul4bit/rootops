@@ -1,18 +1,58 @@
 # RootOPS
 
-RootOPS - практический сайт-роадмап по DevOps: от Linux-базы до production
-инструментов, CI/CD, Kubernetes, observability и SRE.
+RootOPS - практическая DevOps-платформа: лендинг, учебный roadmap, лаборатории и стартовый контур защищённой авторизации.
 
-## Локальный просмотр
+## Локальный запуск
 
-Сайт сейчас статический. Можно открыть `index.html` в браузере или поднять простой
-локальный сервер:
+Статический просмотр по-прежнему возможен:
 
 ```bash
 python -m http.server 8080
 ```
 
+Для регистрации, входа и защищённого кабинета запускай auth-сервер:
+
+```bash
+python server/rootops_auth.py
+```
+
+По умолчанию он открывает:
+
+```text
+http://127.0.0.1:8080
+```
+
+Данные хранятся в SQLite:
+
+```text
+data/rootops.sqlite3
+```
+
+Файл базы не коммитится.
+
+## Auth MVP
+
+Сейчас реализовано:
+
+- регистрация и вход через `/api/auth/register` и `/api/auth/login`;
+- PBKDF2-HMAC-SHA256 для хранения паролей;
+- серверные сессии в SQLite;
+- cookie `rootops_session` с `HttpOnly` и `SameSite=Lax`;
+- CSRF-токен для изменяющих запросов;
+- базовый rate limit на регистрацию и вход;
+- защищённый `/dashboard`;
+- logout через POST.
+
+Для HTTPS production-окружения включи secure-cookie:
+
+```bash
+ROOTOPS_COOKIE_SECURE=1 python server/rootops_auth.py
+```
+
 ## Production
+
+Текущий GitHub Actions workflow разворачивает только статическую часть сайта в `/var/www/rootops`.
+Папка `server/` намеренно исключена из статического deploy, чтобы backend-код не раздавался Caddy как публичные файлы.
 
 Канонический адрес:
 
@@ -20,13 +60,7 @@ python -m http.server 8080
 https://rootops.su/
 ```
 
-Caddy должен раздавать директорию:
-
-```text
-/var/www/rootops
-```
-
-Пример `/etc/caddy/Caddyfile`:
+Пример базового Caddyfile для статического сайта:
 
 ```caddyfile
 www.rootops.su {
@@ -40,67 +74,18 @@ rootops.su {
 }
 ```
 
-После изменения конфига:
-
-```bash
-sudo caddy fmt --overwrite /etc/caddy/Caddyfile
-sudo caddy validate --config /etc/caddy/Caddyfile
-sudo systemctl reload caddy
-```
+Когда auth-сервер будет готов к production, нужно будет добавить отдельный systemd-сервис и reverse proxy для `/api/*`, `/login`, `/register`, `/logout` и `/dashboard`.
 
 ## Автодеплой из GitHub
 
-Workflow лежит в `.github/workflows/deploy.yml`. Он запускается при каждом `push`
-в ветку `main` и синхронизирует файлы сайта на сервер через SSH.
+Workflow находится в `.github/workflows/deploy.yml`. Он запускается при каждом `push` в `main` и синхронизирует статические файлы на сервер через SSH.
 
-### 1. Подготовить пользователя на сервере
-
-```bash
-sudo adduser --disabled-password --gecos "" deploy
-sudo mkdir -p /var/www/rootops
-sudo chown -R deploy:deploy /var/www/rootops
-sudo mkdir -p /home/deploy/.ssh
-sudo chown -R deploy:deploy /home/deploy/.ssh
-sudo chmod 700 /home/deploy/.ssh
-```
-
-### 2. Создать SSH-ключ для GitHub Actions
-
-На локальной машине:
-
-```bash
-ssh-keygen -t ed25519 -C "github-actions-rootops" -f rootops_actions
-```
-
-Публичный ключ добавить на сервер:
-
-```bash
-ssh-copy-id -i rootops_actions.pub deploy@185.23.34.83
-```
-
-Если `ssh-copy-id` недоступен, добавить содержимое `rootops_actions.pub` в файл:
+Необходимые GitHub Actions secrets:
 
 ```text
-/home/deploy/.ssh/authorized_keys
-```
-
-И выставить права:
-
-```bash
-sudo chown deploy:deploy /home/deploy/.ssh/authorized_keys
-sudo chmod 600 /home/deploy/.ssh/authorized_keys
-```
-
-### 3. Добавить GitHub Secrets
-
-В репозитории GitHub: `Settings` -> `Secrets and variables` -> `Actions`.
-
-```text
-DEPLOY_HOST=185.23.34.83
-DEPLOY_USER=deploy
+DEPLOY_HOST=<host>
+DEPLOY_USER=<user>
 DEPLOY_PORT=22
 DEPLOY_PATH=/var/www/rootops
-DEPLOY_SSH_KEY=<содержимое приватного ключа rootops_actions>
+DEPLOY_SSH_KEY=<private deploy key>
 ```
-
-После этого каждый коммит в `main` обновит сайт на сервере.

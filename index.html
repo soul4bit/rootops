@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="RootOPS - практическая DevOps-платформа с личным учебным сервером, лабораториями, roadmap и проверкой прогресса."
+      content="RootOPS - практическая DevOps-платформа с личным учебным сервером, лабораториями, roadmap и защищённой авторизацией."
     />
     <title>RootOPS - личный DevOps-сервер для обучения</title>
+    <link rel="icon" href="assets/rootops-logo.svg" type="image/svg+xml" />
     <link rel="preload" href="assets/rootops-devops-map.png" as="image" />
     <link rel="stylesheet" href="assets/styles.css" />
     <script src="assets/app.js" defer></script>
@@ -15,7 +16,7 @@
   <body>
     <header class="site-header" data-header>
       <a class="brand" href="#top" aria-label="RootOPS">
-        <span class="brand-mark" aria-hidden="true"></span>
+        <img class="brand-logo" src="assets/rootops-logo.svg" alt="" />
         <span>RootOPS</span>
       </a>
 
@@ -29,8 +30,8 @@
       </nav>
 
       <div class="header-actions">
-        <a class="login-action" href="#login-preview">Войти</a>
-        <a class="signup-action" href="#pricing">Регистрация</a>
+        <a class="login-action" href="/login" data-auth-open="login">Войти</a>
+        <a class="signup-action" href="/register" data-auth-open="register">Регистрация</a>
       </div>
     </header>
 
@@ -46,7 +47,7 @@
               лаборатории в своём браузере.
             </p>
             <div class="hero-actions" aria-label="Быстрые действия">
-              <a class="primary-action" href="#pricing">Начать бесплатно</a>
+              <a class="primary-action" href="/register" data-auth-open="register">Начать бесплатно</a>
               <a class="secondary-action" href="#labs">
                 <span>Как это работает</span>
                 <span class="play-dot" aria-hidden="true"></span>
@@ -55,7 +56,7 @@
             <div class="hero-badges" aria-label="Преимущества">
               <span>Без установки</span>
               <span>Доступ 24/7</span>
-              <span>Практика с первого дня</span>
+              <span>Защищённый вход</span>
             </div>
           </div>
 
@@ -178,7 +179,7 @@
                 <dd>59:47</dd>
               </div>
             </dl>
-            <a class="primary-action wide-action" href="#pricing">Получить сервер</a>
+            <a class="primary-action wide-action" href="/register" data-auth-open="register">Получить сервер</a>
           </article>
 
           <div class="server-copy">
@@ -211,7 +212,7 @@
           <div class="dashboard-preview" aria-label="Превью личного кабинета">
             <aside class="preview-sidebar">
               <div class="mini-brand">
-                <span class="brand-mark" aria-hidden="true"></span>
+                <img class="brand-logo" src="assets/rootops-logo.svg" alt="" />
                 <strong>RootOPS</strong>
               </div>
               <span class="nav-pill is-active">Главная</span>
@@ -446,7 +447,7 @@
             <span>RootOPS Basic</span>
             <strong>0 ₽</strong>
             <p>Первый модуль, демо-терминал, progress tracking и стартовые лаборатории.</p>
-            <a class="primary-action wide-action" href="#top">Создать аккаунт</a>
+            <a class="primary-action wide-action" href="/register" data-auth-open="register">Создать аккаунт</a>
           </div>
         </div>
       </section>
@@ -474,5 +475,64 @@
         </div>
       </section>
     </main>
+
+    <div class="auth-modal" data-auth-modal hidden>
+      <button class="auth-backdrop" type="button" data-auth-close aria-label="Закрыть"></button>
+      <section class="auth-card" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+        <button class="auth-close" type="button" data-auth-close aria-label="Закрыть">x</button>
+        <div class="auth-brand">
+          <img class="brand-logo" src="assets/rootops-logo.svg" alt="" />
+          <strong>RootOPS</strong>
+        </div>
+        <h2 id="auth-title">Вход в RootOPS</h2>
+        <p class="auth-subtitle">Сессия хранится на сервере, cookie закрыта от JavaScript.</p>
+
+        <div class="auth-tabs" role="tablist" aria-label="Авторизация">
+          <button class="is-active" type="button" data-auth-tab="login">Вход</button>
+          <button type="button" data-auth-tab="register">Регистрация</button>
+        </div>
+
+        <p class="auth-message" data-auth-message role="status" aria-live="polite"></p>
+
+        <form class="auth-form" data-auth-form="login" autocomplete="on">
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" required placeholder="ivan@example.com" />
+          </label>
+          <label>
+            <span>Пароль</span>
+            <input name="password" type="password" autocomplete="current-password" required minlength="12" />
+          </label>
+          <button class="primary-action wide-action" type="submit">Войти</button>
+        </form>
+
+        <form class="auth-form is-hidden" data-auth-form="register" autocomplete="on">
+          <label>
+            <span>Имя</span>
+            <input name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" placeholder="Иван Петров" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" required placeholder="ivan@example.com" />
+          </label>
+          <label>
+            <span>Пароль</span>
+            <input
+              name="password"
+              type="password"
+              autocomplete="new-password"
+              required
+              minlength="12"
+              placeholder="Минимум 12 символов"
+            />
+          </label>
+          <label class="auth-check">
+            <input name="terms" type="checkbox" required />
+            <span>Я понимаю, что это учебная среда, и не буду хранить здесь секреты production-систем.</span>
+          </label>
+          <button class="primary-action wide-action" type="submit">Зарегистрироваться</button>
+        </form>
+      </section>
+    </div>
   </body>
 </html>
