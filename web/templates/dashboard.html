@@ -14,7 +14,7 @@
         <span>RootOPS</span>
       </a>
       <nav class="site-nav" aria-label="Навигация кабинета">
-        <a class="is-active" href="/dashboard">Главная</a>
+        <a class="is-active" href="/dashboard">Обзор</a>
         <a href="/dashboard">Мой сервер</a>
         <a href="/dashboard">Лаборатории</a>
         <a href="/dashboard">Roadmap</a>
@@ -39,11 +39,11 @@
               <img class="brand-logo" src="/assets/rootops-logo.svg" alt="" />
               <strong>RootOPS</strong>
             </div>
-            <span class="nav-pill is-active">Главная</span>
+            <span class="nav-pill is-active">Обзор</span>
             <span class="nav-pill">Мой сервер</span>
             <span class="nav-pill">Лаборатории</span>
             <span class="nav-pill">Roadmap</span>
-            <span class="nav-pill">Задания</span>
+            <span class="nav-pill">Профиль</span>
             <div class="student-mini">
               <span>{{ .UserInitials }}</span>
               <strong>{{ .UserName }}</strong>
@@ -53,48 +53,33 @@
 
           <div class="preview-main">
             <div class="preview-topbar">
-              <strong>Главная</strong>
-              <span class="search-field">Поиск</span>
+              <strong>Учебная смена</strong>
+              <span>Сервер online</span>
             </div>
             <div class="preview-grid">
               <article class="preview-panel server-panel">
-                <div>
-                  <span>Мой учебный сервер</span>
-                  <strong>Онлайн</strong>
-                </div>
-                <dl>
-                  <div><dt>OS</dt><dd>Ubuntu 24.04</dd></div>
-                  <div><dt>CPU</dt><dd>1 vCPU</dd></div>
-                  <div><dt>RAM</dt><dd>512 MB</dd></div>
-                </dl>
+                <span>Мой учебный сервер</span>
+                <strong>Ubuntu 24.04</strong>
+                <p>Среда готова к лабораториям. Терминал, задачи и автопроверки будут открываться отсюда.</p>
                 <button type="button">Открыть терминал</button>
               </article>
 
               <article class="preview-panel progress-panel">
                 <span>Текущий прогресс</span>
+                <strong>35%</strong>
+                <div class="progress-bar"><span style="width: 35%"></span></div>
+              </article>
+
+              <article class="preview-panel">
+                <span>Продолжить</span>
                 <strong>Linux и терминал</strong>
-                <div class="progress-row">
-                  <span>35%</span>
-                  <span class="progress-bar"><span style="width: 35%"></span></span>
-                </div>
+                <p>Файлы, права, процессы и первые проверки состояния сервера.</p>
               </article>
 
-              <article class="preview-panel learning-panel">
-                <span>Продолжи обучение</span>
-                <strong>Работа с файлами</strong>
-                <p>Основы работы с системой, файлами, правами и процессами.</p>
-                <button type="button">Продолжить лабораторию</button>
-              </article>
-
-              <article class="preview-panel roadmap-panel">
-                <span>Твой путь в DevOps</span>
-                <ol>
-                  <li class="is-current"><span>01</span>Linux</li>
-                  <li><span>02</span>Git</li>
-                  <li><span>03</span>Docker</li>
-                  <li><span>04</span>CI/CD</li>
-                  <li><span>05</span>Kubernetes</li>
-                </ol>
+              <article class="preview-panel">
+                <span>Следующий модуль</span>
+                <strong>Git для DevOps</strong>
+                <p>Ветки, pull request, конфликты и дисциплина изменений.</p>
               </article>
             </div>
           </div>
