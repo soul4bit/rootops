@@ -106,6 +106,13 @@ jobs:
           ln -sfn "$DEPLOY_PATH/releases/$RELEASE" "$DEPLOY_PATH/current"
           chmod +x "$DEPLOY_PATH/current/rootops"
 
-          sudo systemctl restart "$SERVICE"
-          sudo systemctl is-active "$SERVICE"
+          if ! sudo -n systemctl restart "$SERVICE"; then
+            echo "Restart failed. Check that service $SERVICE exists and deploy user has passwordless sudo for systemctl restart/is-active." >&2
+            exit 1
+          fi
+
+          if ! sudo -n systemctl is-active "$SERVICE"; then
+            echo "Service $SERVICE did not become active after restart" >&2
+            exit 1
+          fi
           REMOTE

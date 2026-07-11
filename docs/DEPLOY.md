@@ -76,12 +76,28 @@ sudo systemctl enable rootops
 sudo systemctl start rootops
 ```
 
-The deploy user must be able to restart the service. A narrow sudo rule is
-usually enough:
+The deploy user must be able to restart the service without an interactive
+password prompt. Create a narrow sudoers file on the server:
+
+```bash
+sudo visudo -f /etc/sudoers.d/rootops-deploy
+```
+
+Add this line, replacing `deploy` with the real `DEPLOY_USER` if needed:
 
 ```sudoers
-deploy ALL=(root) NOPASSWD: /bin/systemctl restart rootops, /bin/systemctl is-active rootops
+deploy ALL=(root) NOPASSWD: /usr/bin/systemctl restart rootops, /usr/bin/systemctl is-active rootops, /bin/systemctl restart rootops, /bin/systemctl is-active rootops
 ```
+
+Then check it from the deploy user:
+
+```bash
+sudo -n systemctl restart rootops
+sudo -n systemctl is-active rootops
+```
+
+The `-n` flag is important: it makes sudo fail instead of asking GitHub Actions
+for a password it cannot type.
 
 ## Caddy Reverse Proxy
 
