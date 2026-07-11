@@ -1,0 +1,9 @@
+dist/
+tmp/
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.exe
+*.test
+*.log

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ .Article.Title }} - RootOPS</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">RootOPS</a>
+      <span>{{ .Article.Module }}</span>
+    </header>
+
+    <main class="shell article-layout">
+      <article class="article-body">
+        {{ .Body }}
+      </article>
+
+      <aside class="side-panel">
+        <section>
+          <h2>Тест</h2>
+          {{ if .HasQuiz }}
+            <p>{{ len .Quiz.Questions }} вопросов</p>
+            {{ range .Quiz.Questions }}
+              <div class="question">
+                <strong>{{ .Text }}</strong>
+                <ol>
+                  {{ range .Options }}<li>{{ . }}</li>{{ end }}
+                </ol>
+              </div>
+            {{ end }}
+          {{ else }}
+            <p>Тест еще не создан.</p>
+          {{ end }}
+        </section>
+
+        <section>
+          <h2>Практика</h2>
+          {{ if .HasLab }}
+            <p>{{ .Lab.Title }}</p>
+            <p>{{ .Lab.Summary }}</p>
+            <span class="module">{{ .Lab.Environment.Image }}</span>
+            <ol>
+              {{ range .Lab.Steps }}<li>{{ . }}</li>{{ end }}
+            </ol>
+          {{ else }}
+            <p>Консольная практика еще не создана.</p>
+          {{ end }}
+        </section>
+      </aside>
+    </main>
+  </body>
+</html>

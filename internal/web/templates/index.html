@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RootOPS Knowledge</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">RootOPS</a>
+      <span>knowledge + quiz + console labs</span>
+    </header>
+
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">File-first DevOps learning system</p>
+        <h1>База знаний, тесты и практика в одной структуре</h1>
+        <p>
+          Добавляй статьи и привязывай к ним быстрые тесты и консольные задания.
+          CLI валидирует каталог, а web preview показывает, как это увидит студент.
+        </p>
+      </section>
+
+      <section class="content-grid" aria-label="Articles">
+        {{ range .Articles }}
+          <article class="article-card">
+            <span class="module">{{ .Article.Module }}</span>
+            <h2><a href="/articles/{{ .Article.ID }}">{{ .Article.Title }}</a></h2>
+            <p>{{ .Article.Summary }}</p>
+            <div class="badges">
+              {{ if .HasQuiz }}<span>quiz</span>{{ end }}
+              {{ if .HasLab }}<span>lab</span>{{ end }}
+            </div>
+          </article>
+        {{ else }}
+          <article class="empty-card">
+            <h2>Пока нет статей</h2>
+            <p>Создай первую тему через консоль:</p>
+            <pre><code>go run ./cmd/rootops content new article linux-start --title "Linux start" --module linux</code></pre>
+          </article>
+        {{ end }}
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+name: Deploy RootOPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: rootops-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy Go app
+    runs-on: ubuntu-latest
+
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+      DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+      DEPLOY_GOARCH: ${{ vars.DEPLOY_GOARCH }}
+      ROOTOPS_SERVICE: ${{ secrets.ROOTOPS_SERVICE }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Test
+        run: go test ./...
+
+      - name: Validate content
+        run: go run ./cmd/rootops content validate
+
+      - name: Build release
+        run: |
+          set -euo pipefail
+
+          target_goarch="${DEPLOY_GOARCH:-amd64}"
+          mkdir -p dist/rootops
+
+          GOOS=linux GOARCH="$target_goarch" CGO_ENABLED=0 \
+            go build -trimpath -ldflags="-s -w" -o dist/rootops/rootops ./cmd/rootops
+
+          cp -R assets content dist/rootops/
+          cp README.md dist/rootops/
+          mkdir -p dist/rootops/docs
+          cp docs/*.md dist/rootops/docs/
+          printf '%s\n' "$GITHUB_SHA" > dist/rootops/REVISION
+
+      - name: Install deploy tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync openssh-client
+
+      - name: Configure SSH
+        run: |
+          set -euo pipefail
+
+          test -n "$DEPLOY_HOST"
+          test -n "$DEPLOY_USER"
+          test -n "$DEPLOY_PATH"
+          test -n "$DEPLOY_SSH_KEY"
+
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/rootops_deploy_key
+          chmod 600 ~/.ssh/rootops_deploy_key
+          ssh-keyscan -p "${DEPLOY_PORT:-22}" -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Prepare remote release directory
+        run: |
+          set -euo pipefail
+
+          ssh -i ~/.ssh/rootops_deploy_key -p "${DEPLOY_PORT:-22}" \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            "mkdir -p '$DEPLOY_PATH/releases/$GITHUB_SHA'"
+
+      - name: Upload release
+        run: |
+          set -euo pipefail
+
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/rootops_deploy_key -p ${DEPLOY_PORT:-22}" \
+            dist/rootops/ \
+            "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/releases/$GITHUB_SHA/"
+
+      - name: Activate release
+        run: |
+          set -euo pipefail
+
+          service_name="${ROOTOPS_SERVICE:-rootops}"
+
+          ssh -i ~/.ssh/rootops_deploy_key -p "${DEPLOY_PORT:-22}" \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            "DEPLOY_PATH='$DEPLOY_PATH' RELEASE='$GITHUB_SHA' SERVICE='$service_name' bash -s" <<'REMOTE'
+          set -euo pipefail
+
+          ln -sfn "$DEPLOY_PATH/releases/$RELEASE" "$DEPLOY_PATH/current"
+          chmod +x "$DEPLOY_PATH/current/rootops"
+
+          sudo systemctl restart "$SERVICE"
+          sudo systemctl is-active "$SERVICE"
+          REMOTE

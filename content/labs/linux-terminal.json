@@ -1,0 +1,21 @@
+{
+  "article_id": "linux-terminal",
+  "title": "Создай marker-файл в Linux",
+  "summary": "Открой консоль, перейди в /tmp и создай файл rootops-ready.",
+  "environment": {
+    "image": "ubuntu:24.04"
+  },
+  "steps": [
+    "Перейди в /tmp.",
+    "Создай файл rootops-ready.",
+    "Запусти проверку."
+  ],
+  "checks": [
+    {
+      "name": "marker file exists",
+      "kind": "command",
+      "command": "test -f /tmp/rootops-ready",
+      "expect_exit_code": 0
+    }
+  ]
+}

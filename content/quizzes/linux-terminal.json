@@ -1,0 +1,16 @@
+{
+  "article_id": "linux-terminal",
+  "questions": [
+    {
+      "text": "Какая команда показывает текущую директорию?",
+      "options": [
+        "pwd",
+        "ls -la",
+        "cat",
+        "cd"
+      ],
+      "answer": 0,
+      "explanation": "pwd печатает путь текущей рабочей директории."
+    }
+  ]
+}
